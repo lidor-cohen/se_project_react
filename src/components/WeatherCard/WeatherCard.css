@@ -1,11 +1,16 @@
 .weather-card {
-  height: 80px;
-  background-position: center;
+  background-position: right;
   background-repeat: no-repeat;
   background-size: cover;
+
+  height: 80px;
+
   display: flex;
   align-items: center;
   padding-left: 16px;
+
+  overflow: hidden;
+  border-radius: 12px;
 }
 
 .weather-card__temp {

@@ -2,4 +2,27 @@
   font-family: 'Cabinet Grotesk';
   padding-left: 40px;
   padding-right: 40px;
+
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.button-primary {
+  border: none;
+  padding: 8px 16px;
+  background-color: rgba(0, 0, 0, 1);
+  color: white;
+  border-radius: 4px;
+  transition: background-color 0.1s ease-in;
+  width: fit-content;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.button-primary:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.button-primary:disabled {
+  background-color: rgba(0, 0, 0, 0.3);
 }
