@@ -1,6 +1,6 @@
 const apiKey = '79c1e085ee7bd08d2cd9b14d81f84c9e';
-const latitude = '31.903410';
-const longitude = '34.806831';
+const latitude = '31.804380';
+const longitude = '34.655315';
 const defaultClothingItems = [
   {
     _id: 0,

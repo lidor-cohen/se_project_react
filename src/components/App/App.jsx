@@ -17,7 +17,7 @@ function App() {
   return (
     <div className="page">
       <Header cityName={weatherData.cityName} />
-      <Main temp={weatherData.temp} />
+      <Main temp={weatherData.temp} weather={weatherData.weather} />
       <Footer />
     </div>
   );

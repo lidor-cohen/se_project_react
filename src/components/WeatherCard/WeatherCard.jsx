@@ -1,7 +1,12 @@
 import './WeatherCard.css';
 
 function WeatherCard(props) {
-  const baseBackroundURL = `../../assets/weathercard-day/${props.weather}.png`;
+  const currentHour = new Date().getHours();
+  const isDayTime = currentHour > 6 && currentHour < 20;
+
+  const baseBackroundURL = `../../assets/weathercard-${
+    isDayTime ? 'day' : 'night'
+  }/${props.weather}.png`;
 
   return (
     <div

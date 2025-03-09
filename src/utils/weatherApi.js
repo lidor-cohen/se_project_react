@@ -6,8 +6,8 @@ function fetchData() {
     .then((res) => res.json())
     .then((json) => {
       const temp = json.main.temp;
-      let feeling;
 
+      let feeling;
       if (temp >= 30) {
         feeling = 'hot';
       } else if (temp >= 25) {
@@ -16,13 +16,23 @@ function fetchData() {
         feeling = 'cold';
       }
 
+      const weatherID = json.weather[0].id;
+      let weather;
+      if (weatherID === 800) weather = 'sunny';
+      else if (weatherID > 800) weather = 'cloudy';
+      else if (weatherID >= 200 && weatherID < 300) weather = 'storm';
+      else if (weatherID >= 300 && weatherID < 600) weather = 'rain';
+      else if (weatherID >= 600 && weatherID < 700) weather = 'snow';
+      else if (weatherID >= 700 && weatherID < 800) weather = 'fog';
+
       return {
         cityName: json.name,
         temp,
         feeling,
+        weather,
       };
     })
-    .catch((err) => err);
+    .catch((err) => console.log(err));
 }
 
 export { fetchData };
