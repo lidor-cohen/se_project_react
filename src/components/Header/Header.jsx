@@ -1,7 +1,6 @@
-import { useEffect } from 'react';
 import './Header.css';
 
-function Header() {
+function Header({ cityName }) {
   const currentDate = new Date().toLocaleString('en-EN', {
     month: 'long',
     day: 'numeric',
@@ -11,7 +10,9 @@ function Header() {
     <header className="header">
       <div className="header__left-section">
         <h1 className="header__logo">wtwr°</h1>
-        <h2 className="header__date">{currentDate}</h2>
+        <h2 className="header__date">
+          {currentDate}, {cityName}
+        </h2>
       </div>
 
       <ul className="header__right-section">

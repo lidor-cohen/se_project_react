@@ -1,15 +1,15 @@
 import './ItemCard.css';
 
-function ItemCard(props) {
+function ItemCard({ image, title }) {
   return (
     <div
       className="item-card"
       style={{
-        backgroundImage: `url(${new URL(props.image, import.meta.url).href})`,
+        backgroundImage: `url(${new URL(image, import.meta.url).href})`,
       }}
       onClick={() => props.handleCardClick()}
     >
-      <p className="item-card__title">{props.title}</p>
+      <p className="item-card__title">{title}</p>
     </div>
   );
 }
