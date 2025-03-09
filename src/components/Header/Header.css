@@ -1,7 +1,36 @@
-.logo {
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header__left-section {
+  display: flex;
+  align-items: baseline;
+  gap: 24px;
+}
+
+.header__logo {
   font-family: 'Cabinet Grotesk', Arial, Helvetica, sans-serif;
-  font-weight: 100;
+  font-weight: 900;
   font-size: 32px;
-  line-height: 100%;
-  letter-spacing: 0%;
+  line-height: 1.2;
+}
+
+.header__date {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.header__right-section {
+  list-style: none;
+  display: flex;
+  font-size: 20px;
+  font-weight: 700;
+  gap: 20px;
+  align-items: center;
+}
+
+.header__user-image {
+  width: 40px;
 }
