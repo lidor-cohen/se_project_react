@@ -1,0 +1,16 @@
+.weather-card {
+  height: 80px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  padding-left: 16px;
+}
+
+.weather-card__temp {
+  font-family: Cabinet Grotesk;
+  font-weight: 700;
+  font-size: 36px;
+  color: white;
+}
