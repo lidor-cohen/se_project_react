@@ -1,7 +1,21 @@
 import './ItemModal.css';
 import closeButtonImage from '../../assets/icons/close-button.svg';
+import { useEffect } from 'react';
 
 function ItemModal({ image, title, weatherCondition, onClose }) {
+  function handleExitByESC(e) {
+    if (e.key === 'Escape') onClose();
+  }
+
+  function handleExitByBackdrop(e) {
+    if (e.target.classList.contains('item-modal')) onClose();
+  }
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleExitByESC);
+    document.addEventListener('click', handleExitByBackdrop);
+  }, []);
+
   return (
     <div className="item-modal">
       <div className="item-modal__container">

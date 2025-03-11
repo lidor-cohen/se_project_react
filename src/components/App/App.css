@@ -1,3 +1,23 @@
+/* Hide Scrollbar */
+body {
+  -ms-overflow-style: none;
+}
+
+/* Dont allow scrolling while modal is open */
+body:has(.item-modal),
+body:has(.form-modal) {
+  overflow: hidden;
+}
+
+/* Hide Scrollbar */
+::-webkit-scrollbar {
+  display: none;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+}
+
 .page {
   font-family: 'Cabinet Grotesk';
   padding-left: 40px;
@@ -29,8 +49,4 @@
 
 .button-primary:disabled {
   background-color: rgba(0, 0, 0, 0.3);
-}
-
-body:has(.item-modal) {
-  overflow: hidden;
 }
