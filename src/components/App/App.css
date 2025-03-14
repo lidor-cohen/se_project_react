@@ -32,10 +32,12 @@ body:has(.modal) {
 
   max-width: 1440px;
   margin: 0 auto;
+  min-height: 100vh;
+}
 
+.page__content {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
 }
 
 .button-primary {

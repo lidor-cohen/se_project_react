@@ -3,7 +3,11 @@ import { longitude as lon, latitude as lat, apiKey } from './constants';
 const baseURL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
 function fetchData() {
   return fetch(baseURL)
-    .then((res) => res.json())
+    .then((res) => {
+      if (res.ok) return res.json();
+
+      return Promise.reject(`Error: ${res.status}`);
+    })
     .then((json) => {
       const temp = json.main.temp;
 
@@ -31,8 +35,7 @@ function fetchData() {
         feeling,
         weather,
       };
-    })
-    .catch((err) => console.log(err));
+    });
 }
 
 export { fetchData };
