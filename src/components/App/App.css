@@ -1,11 +1,18 @@
+/* Remove all default margin ( */
+p,
+h1,
+h2,
+ul {
+  margin: 0;
+}
+
 /* Hide Scrollbar */
 body {
   -ms-overflow-style: none;
 }
 
 /* Dont allow scrolling while modal is open */
-body:has(.item-modal),
-body:has(.form-modal) {
+body:has(.modal) {
   overflow: hidden;
 }
 

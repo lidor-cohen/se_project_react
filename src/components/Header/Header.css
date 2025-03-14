@@ -5,7 +5,7 @@
 
 .header__left-section {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 24px;
 }
 
@@ -17,20 +17,24 @@
 }
 
 .header__date {
-  font-weight: 700;
   font-size: 20px;
+  font-weight: 700;
   line-height: 1.2;
 }
 
 .header__right-section {
   list-style: none;
   display: flex;
-  font-size: 20px;
   font-weight: 700;
   gap: 20px;
   align-items: center;
+  font-size: 20px;
 }
 
 .header__user-image {
   width: 40px;
+}
+
+.header__nav-item {
+  cursor: pointer;
 }
