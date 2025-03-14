@@ -54,8 +54,11 @@ function App() {
           buttonText="Add garment"
         >
           <div className="form-modal__input-container">
-            <label className="form-modal__label">Name</label>
+            <label htmlFor="garmentName" className="form-modal__label">
+              Name
+            </label>
             <input
+              id="garmentName"
               placeholder="Name"
               type="text"
               className="form-modal__input form-modal__input_type_text"
@@ -63,8 +66,11 @@ function App() {
           </div>
 
           <div className="form-modal__input-container">
-            <label className="form-modal__label">Image</label>
+            <label htmlFor="garmentImageURL" className="form-modal__label">
+              Image
+            </label>
             <input
+              id="garmentImageURL"
               placeholder="Image URL"
               type="text"
               className="form-modal__input form-modal__input_type_text"
@@ -136,6 +142,7 @@ function App() {
         <Main
           temp={weatherData.temp}
           weather={weatherData.weather}
+          feeling={weatherData.feeling}
           handleCardClick={(data) => {
             setModalData(data);
             handleCardClick();

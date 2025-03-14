@@ -3,7 +3,11 @@ import WeatherCard from '../WeatherCard/WeatherCard';
 import ItemCard from '../ItemCard/ItemCard';
 import { defaultClothingItems } from '../../utils/constants';
 
-function Main({ temp, weather, handleCardClick }) {
+function Main({ temp, weather, feeling, handleCardClick }) {
+  const filteredClothingItems = defaultClothingItems.filter(
+    (item) => item.weather === feeling
+  );
+
   return (
     <main className="main">
       <WeatherCard temp={temp} weather={weather} />
@@ -11,7 +15,7 @@ function Main({ temp, weather, handleCardClick }) {
         Today is {temp}°C / You may want to wear:
       </h2>
       <div className="main__products">
-        {defaultClothingItems.map((item) => (
+        {filteredClothingItems.map((item) => (
           <ItemCard
             key={item._id}
             image={item.link}

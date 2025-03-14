@@ -8,15 +8,15 @@ function Modal({
   onClose,
   children,
 }) {
-  function handleExitByESC(e) {
-    if (e.key === 'Escape') onClose();
-  }
-
-  function handleExitByBackdrop(e) {
-    if (e.target.classList.contains('modal')) onClose();
-  }
-
   useEffect(() => {
+    function handleExitByESC(e) {
+      if (e.key === 'Escape') onClose();
+    }
+
+    function handleExitByBackdrop(e) {
+      if (e.target.classList.contains('modal')) onClose();
+    }
+
     document.addEventListener('keydown', handleExitByESC);
     document.addEventListener('click', handleExitByBackdrop);
 

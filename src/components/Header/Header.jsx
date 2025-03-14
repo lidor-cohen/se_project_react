@@ -6,6 +6,9 @@ function Header({ cityName, handleButtonOpen, handleButtonClose }) {
     day: 'numeric',
   });
 
+  // Yeah I know.. I gave up for now on the responsiveness but
+  // I promise I will do it for the final project!!
+
   return (
     <header className="header">
       <div className="header__left-section">
