@@ -2,8 +2,12 @@ import './Main.css';
 import WeatherCard from '../WeatherCard/WeatherCard';
 import ItemCard from '../ItemCard/ItemCard';
 import { defaultClothingItems } from '../../utils/constants';
+import { CurrentTemperatureUnitContext } from '../../contexts/CurrentTemperatureUnitContext';
+import { useContext } from 'react';
 
 function Main({ temp, weather, feeling, handleCardClick }) {
+  const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
+
   const filteredClothingItems = defaultClothingItems.filter(
     (item) => item.weather === feeling
   );
@@ -12,7 +16,7 @@ function Main({ temp, weather, feeling, handleCardClick }) {
     <main className="main">
       <WeatherCard temp={temp} weather={weather} />
       <h2 className="main__header">
-        Today is {temp}°C / You may want to wear:
+        Today is {temp}°{currentTemperatureUnit} / You may want to wear:
       </h2>
       <div className="main__products">
         {filteredClothingItems.map((item) => (

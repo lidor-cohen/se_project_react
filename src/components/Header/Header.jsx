@@ -1,3 +1,5 @@
+import { useContext } from 'react';
+import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
 import './Header.css';
 
 function Header({ cityName, handleButtonOpen, handleButtonClose }) {
@@ -5,9 +7,6 @@ function Header({ cityName, handleButtonOpen, handleButtonClose }) {
     month: 'long',
     day: 'numeric',
   });
-
-  // Yeah I know.. I gave up for now on the responsiveness but
-  // I promise I will do it for the final project!!
 
   return (
     <header className="header">
@@ -19,6 +18,7 @@ function Header({ cityName, handleButtonOpen, handleButtonClose }) {
       </div>
 
       <ul className="header__right-section">
+        <ToggleSwitch value={false} onChange={() => {}} />
         <li
           className="header__nav-item header__nav-item_type_add-clothes"
           onClick={handleButtonOpen}
@@ -31,7 +31,7 @@ function Header({ cityName, handleButtonOpen, handleButtonClose }) {
         <li className="header__nav-item header__nav-item_type_avatar">
           <img
             className="header__user-image"
-            src="https://s3-alpha-sig.figma.com/img/bf9a/322c/2e259a8c8558ae5104a4ec0d6ae39021?Expires=1742169600&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=fpc4Be7OTBRUP~98B3-BSolBgXxs36lNCTOtye6mHkdnDd-M~P-avetaDWRrxIhuXUC8Wf466y3kl6r9gHY9HAYXKnFL0UYbKjN386TP-dui3sgiv2k7rW5Y35Ot1LK3uxMtN2FH0XsecXTRVUuYJpJOFwthy6VrLqBAzYPebnpqIC5HwaUpZpGNl1tw1dcXRs~Nac8wwfIn8FVwwxHiuJtdL6-xtmWZksgAlrZoX9W18ncVSR3I2bEGmGNHvdA19o4R0cNESO~6aw63X0UhgieDRC4ytIjWeqjAk2sFt1r-smX76-6Id9XCIU8KyPVNdjOn3qREO0ePPho79Yzpzw__"
+            src="https://i.ibb.co/9HnNNzsk/2e259a8c8558ae5104a4ec0d6ae39021.png"
             alt="user image"
           />
         </li>

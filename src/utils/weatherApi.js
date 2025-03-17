@@ -1,6 +1,6 @@
 import { longitude as lon, latitude as lat, apiKey } from './constants';
 
-const baseURL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+const baseURL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`;
 function fetchData() {
   return fetch(baseURL)
     .then((res) => {
@@ -12,9 +12,9 @@ function fetchData() {
       const temp = json.main.temp;
 
       let feeling;
-      if (temp >= 30) {
+      if (temp >= 80) {
         feeling = 'hot';
-      } else if (temp >= 25) {
+      } else if (temp >= 65) {
         feeling = 'warm';
       } else {
         feeling = 'cold';
@@ -31,7 +31,8 @@ function fetchData() {
 
       return {
         cityName: json.name,
-        temp,
+        tempF: temp,
+        tempC: Math.round(((temp - 32) * 5) / 9),
         feeling,
         weather,
       };

@@ -1,0 +1,62 @@
+.switch__input {
+  display: block;
+  position: relative;
+
+  appearance: none;
+  -webkit-appearance: none;
+
+  width: 56px;
+  height: 28px;
+  border-radius: 20px;
+  border: 2px solid rgba(0, 0, 0, 0.5);
+
+  cursor: pointer;
+}
+
+.switch__input::after {
+  content: 'C';
+  color: rgba(0, 0, 0, 0.5);
+
+  height: 100%;
+  padding: 0 6px;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  font-size: 14px;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.switch__input::before {
+  position: absolute;
+  display: grid;
+  place-items: center;
+
+  content: 'F';
+  font-weight: 700;
+  font-size: 14px;
+
+  background: black;
+  color: white;
+
+  width: 28px;
+  height: 28px;
+
+  border-radius: 50%;
+
+  transform: translate(-2px, -2px);
+
+  transition: transform 0.2s ease;
+}
+
+.switch__input:checked::before {
+  transform: translate(26px, -2px);
+  content: 'C';
+}
+
+.switch__input:checked::after {
+  justify-content: flex-start;
+  content: 'F';
+}
