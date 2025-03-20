@@ -2,14 +2,14 @@ import './WeatherCard.css';
 import { CurrentTemperatureUnitContext } from '../../contexts/CurrentTemperatureUnitContext';
 import { useContext } from 'react';
 
-function WeatherCard(props) {
+function WeatherCard({ temp, weather }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
   const currentHour = new Date().getHours();
   const isDayTime = currentHour > 6 && currentHour < 20;
 
   const baseBackroundURL = `../../assets/weathercard-${
     isDayTime ? 'day' : 'night'
-  }/${props.weather}.png`;
+  }/${weather}.png`;
 
   return (
     <div
@@ -21,7 +21,7 @@ function WeatherCard(props) {
       }}
     >
       <h2 className="weather-card__temp">
-        {props.temp}°{currentTemperatureUnit}
+        {temp}°{currentTemperatureUnit}
       </h2>
     </div>
   );

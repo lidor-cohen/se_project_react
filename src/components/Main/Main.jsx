@@ -14,9 +14,10 @@ function Main({ temp, weather, feeling, handleCardClick }) {
 
   return (
     <main className="main">
-      <WeatherCard temp={temp} weather={weather} />
+      <WeatherCard temp={temp[currentTemperatureUnit]} weather={weather} />
       <h2 className="main__header">
-        Today is {temp}°{currentTemperatureUnit} / You may want to wear:
+        Today is {temp[currentTemperatureUnit]}°{currentTemperatureUnit} / You
+        may want to wear:
       </h2>
       <div className="main__products">
         {filteredClothingItems.map((item) => (

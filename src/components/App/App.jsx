@@ -156,7 +156,7 @@ function App() {
             handleButtonOpen={handleModalOpen}
           />
           <Main
-            temp={weatherData.tempF}
+            temp={weatherData.temp}
             weather={weatherData.weather}
             feeling={weatherData.feeling}
             handleCardClick={(data) => {

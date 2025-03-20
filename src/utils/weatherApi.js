@@ -31,8 +31,7 @@ function fetchData() {
 
       return {
         cityName: json.name,
-        tempF: temp,
-        tempC: Math.round(((temp - 32) * 5) / 9),
+        temp: { F: temp, C: Math.round(((temp - 32) * 5) / 9) },
         feeling,
         weather,
       };
