@@ -1,0 +1,30 @@
+.clothes-section {
+  flex: 3;
+
+  display: flex;
+  gap: 16px;
+  flex-direction: column;
+
+  padding-top: 18px;
+}
+
+.clothes-section__header {
+  display: flex;
+  gap: 20px;
+  align-items: baseline;
+
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.clothes-section__add-new {
+  color: black;
+  opacity: 0.6;
+  text-decoration: none;
+}
+
+.clothes-section__gallery {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, 325px);
+}

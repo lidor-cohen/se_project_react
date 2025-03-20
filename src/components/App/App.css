@@ -25,6 +25,12 @@ body:has(.modal) {
   display: none;
 }
 
+/* Reset default styling of anchor tags */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 .page {
   font-family: 'Cabinet Grotesk';
   padding-left: 40px;

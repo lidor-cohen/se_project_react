@@ -38,3 +38,9 @@
 .header__nav-item {
   cursor: pointer;
 }
+
+.header__nav-item_type_account {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}

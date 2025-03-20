@@ -1,0 +1,16 @@
+.sidebar {
+  flex: 1;
+}
+
+.sidebar__profile-info {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.sidebar__profile-image {
+  width: 56px;
+  aspect-ratio: 1;
+}
