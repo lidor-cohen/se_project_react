@@ -50,6 +50,8 @@ function App() {
     handleModalClose();
   }
 
+  function handleDeleteItem() {}
+
   useEffect(() => {
     fetchData()
       .then((res) => setCurrentWeatherData(res))
@@ -81,6 +83,7 @@ function App() {
                 onClose={() => {
                   setActiveModal('');
                 }}
+                onDelete={handleDeleteItem}
               />
             )}
 
