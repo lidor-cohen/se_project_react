@@ -1,5 +1,6 @@
 // External
 import { useEffect, useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import { fetchData } from '../../utils/weatherApi';
 
 // Components
@@ -9,6 +10,7 @@ import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
 import ModalWithForm from '../ModalWithForm/ModalWithForm';
 import ItemModal from '../ItemModal/ItemModal';
+import Profile from '../Profile/Profile';
 
 // Contexts
 import { CurrentTemperatureUnitContext } from '../../contexts/CurrentTemperatureUnitContext';
@@ -155,15 +157,25 @@ function App() {
             cityName={weatherData.cityName}
             handleButtonOpen={handleModalOpen}
           />
-          <Main
-            temp={weatherData.temp}
-            weather={weatherData.weather}
-            feeling={weatherData.feeling}
-            handleCardClick={(data) => {
-              setModalData(data);
-              handleCardClick();
-            }}
-          />
+
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Main
+                  temp={weatherData.temp}
+                  weather={weatherData.weather}
+                  feeling={weatherData.feeling}
+                  handleCardClick={(data) => {
+                    setModalData(data);
+                    handleCardClick();
+                  }}
+                />
+              }
+            ></Route>
+            <Route path="/profile" element={<Profile />}></Route>
+          </Routes>
+
           <Footer />
         </div>
       </CurrentTemperatureUnitContext.Provider>
