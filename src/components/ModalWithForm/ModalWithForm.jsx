@@ -2,7 +2,14 @@ import closeButtonImage from '../../assets/icons/close-button-gray.svg';
 import Modal from '../Modal/Modal';
 import './ModalWithForm.css';
 
-function ModalWithForm({ title, name, buttonText, onClose, children }) {
+function ModalWithForm({
+  title,
+  name,
+  buttonText,
+  onClose,
+  onSubmit,
+  children,
+}) {
   return (
     <Modal
       modalClass="modal_type_form"
@@ -13,18 +20,12 @@ function ModalWithForm({ title, name, buttonText, onClose, children }) {
       <form
         name={name}
         className={`form-modal__form form-modal__form_type_${name}`}
-        onSubmit={(evt) => {
-          evt.preventDefault();
-        }}
+        onSubmit={onSubmit}
         noValidate
       >
         {children}
 
-        <button
-          disabled
-          className="button-primary form-modal__submit"
-          type="submit"
-        >
+        <button className="button-primary form-modal__submit" type="submit">
           {buttonText}
         </button>
       </form>

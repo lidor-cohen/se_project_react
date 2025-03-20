@@ -1,18 +1,27 @@
 import './Main.css';
 import WeatherCard from '../WeatherCard/WeatherCard';
 import ItemCard from '../ItemCard/ItemCard';
-import { defaultClothingItems } from '../../utils/constants';
-import { useContext } from 'react';
+
+import { useState, useContext, useEffect } from 'react';
+
 import { CurrentTemperatureUnitContext } from '../../contexts/CurrentTemperatureUnitContext';
 import { CurrentWeatherDataContext } from '../../contexts/CurrentWeatherDataContext';
+import { CurrentClothingItemsContext } from '../../contexts/CurrentClothingItemsContext';
 
 function Main({ handleCardClick }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
   const { currentWeatherData } = useContext(CurrentWeatherDataContext);
+  const { currentClothingItems } = useContext(CurrentClothingItemsContext);
 
-  const filteredClothingItems = defaultClothingItems.filter(
-    (item) => item.weather === currentWeatherData.feeling
-  );
+  const [filteredClothingItems, setFilteredClothingItems] = useState([]);
+
+  useEffect(() => {
+    setFilteredClothingItems(
+      currentClothingItems.filter(
+        (item) => item.weather === currentWeatherData.feeling
+      )
+    );
+  }, [currentClothingItems]);
 
   return (
     <main className="main">

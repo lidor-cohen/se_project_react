@@ -1,16 +1,24 @@
 import './ClothesSection.css';
-import { useContext } from 'react';
+import { useContext, useState, useEffect } from 'react';
 
 import { CurrentWeatherDataContext } from '../../contexts/CurrentWeatherDataContext';
+import { CurrentClothingItemsContext } from '../../contexts/CurrentClothingItemsContext';
 
 import ItemCard from '../ItemCard/ItemCard';
-import { defaultClothingItems } from '../../utils/constants';
 
 function ClothesSection({ handleCardClick }) {
+  const { currentClothingItems } = useContext(CurrentClothingItemsContext);
   const { currentWeatherData } = useContext(CurrentWeatherDataContext);
-  const filteredClothingItems = defaultClothingItems.filter(
-    (item) => item.weather === currentWeatherData.feeling
-  );
+
+  const [filteredClothingItems, setFilteredClothingItems] = useState([]);
+
+  useEffect(() => {
+    setFilteredClothingItems(
+      currentClothingItems.filter(
+        (item) => item.weather === currentWeatherData.feeling
+      )
+    );
+  }, []);
 
   return (
     <div className="clothes-section">
