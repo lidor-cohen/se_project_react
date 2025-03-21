@@ -7,7 +7,7 @@ function ItemCard({ image, title, handleCardClick }) {
       style={{
         backgroundImage: `url(${new URL(image, import.meta.url).href})`,
       }}
-      onClick={() => handleCardClick()}
+      onClick={handleCardClick}
     >
       <p className="item-card__title">{title}</p>
     </div>

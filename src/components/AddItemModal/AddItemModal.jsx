@@ -39,12 +39,11 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(currentClothingItems);
     onAddItem({
       _id: currentClothingItems.length + 1,
       name: nameInput,
       weather: weatherTypeInput,
-      link: imageUrlInput,
+      imageUrl: imageUrlInput,
     });
   }
 

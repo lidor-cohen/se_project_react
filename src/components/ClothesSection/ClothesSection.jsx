@@ -32,7 +32,7 @@ function ClothesSection({ handleCardClick }) {
         {filteredClothingItems.map((item) => (
           <ItemCard
             key={item._id}
-            image={item.link}
+            image={item.imageUrl}
             title={item.name}
             handleCardClick={() => {
               handleCardClick(item);

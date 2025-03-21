@@ -1,8 +1,8 @@
 // External
 import { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { fetchData } from '../../utils/weatherApi';
-import { defaultClothingItems } from '../../utils/constants.js';
+import WeatherAPI from '../../utils/WeatherAPI.js';
+import dbApi from '../../utils/dbApi.js';
 
 // Components
 import './App.css';
@@ -24,8 +24,9 @@ function App() {
   const [modalData, setModalData] = useState({});
   const [apiError, setApiError] = useState('');
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState('F');
-  const [currentClothingItems, setCurrentClothingItems] =
-    useState(defaultClothingItems);
+  const [currentClothingItems, setCurrentClothingItems] = useState([]);
+
+  const [selectedItemId, setSelectedItemId] = useState(-1);
 
   function handleToggleSwitchChange() {
     setCurrentTemperatureUnit((prev) =>
@@ -33,7 +34,8 @@ function App() {
     );
   }
 
-  function handleCardClick() {
+  function handleCardClick(item) {
+    setSelectedItemId(item._id);
     setActiveModal('item-modal');
   }
 
@@ -46,14 +48,47 @@ function App() {
   }
 
   function handleAddItemSubmit(item) {
-    setCurrentClothingItems([item, ...currentClothingItems]);
+    dbApi
+      .createItem(item)
+      .then((res) => {
+        if (res.ok) {
+          setCurrentClothingItems([item, ...currentClothingItems]);
+          return Promise.resolve();
+        }
+        return Promise.reject(`Error: ${res.statusText}`);
+      })
+      .then.catch((err) => setApiError(err));
     handleModalClose();
   }
 
-  function handleDeleteItem() {}
+  function handleDeleteItem() {
+    dbApi
+      .deleteItem({ id: selectedItemId })
+      .then((res) => {
+        if (res.ok) {
+          handleModalClose();
+          dbApi
+            .getItems()
+            .then((res) => res.json())
+            .then((arr) => {
+              setCurrentClothingItems(arr.reverse());
+            });
+          return Promise.resolve();
+        }
+        return Promise.reject(`Error: ${res.statusText}`);
+      })
+      .catch((err) => console.log(err));
+  }
 
   useEffect(() => {
-    fetchData()
+    dbApi
+      .getItems()
+      .then((res) => res.json())
+      .then((arr) => {
+        setCurrentClothingItems(arr.reverse());
+      });
+
+    WeatherAPI.fetchData()
       .then((res) => setCurrentWeatherData(res))
       .catch((err) => {
         setApiError(err);
@@ -78,7 +113,7 @@ function App() {
             {activeModal === 'item-modal' && (
               <ItemModal
                 title={modalData.name}
-                image={modalData.link}
+                image={modalData.imageUrl}
                 weatherCondition={modalData.weather}
                 onClose={() => {
                   setActiveModal('');
@@ -100,7 +135,7 @@ function App() {
                     <Main
                       handleCardClick={(data) => {
                         setModalData(data);
-                        handleCardClick();
+                        handleCardClick(data);
                       }}
                     />
                   }
