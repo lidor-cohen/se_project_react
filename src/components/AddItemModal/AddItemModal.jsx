@@ -1,7 +1,7 @@
 import './AddItemModal.css';
 
 import ModalWithForm from '../ModalWithForm/ModalWithForm';
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext, useRef } from 'react';
 
 import { CurrentClothingItemsContext } from '../../contexts/CurrentClothingItemsContext';
 
@@ -9,9 +9,17 @@ const DEFAULT_WEATHER_TYPE = 'hot'; // Options: hot, cold, warm
 
 function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
   const [nameInput, setNameInput] = useState('');
+  const nameInputLabel = useRef();
+
   const [imageUrlInput, setImageUrlInput] = useState('');
+  const imageInputLabel = useRef();
+
   const [weatherTypeInput, setWeatherTypeInput] =
     useState(DEFAULT_WEATHER_TYPE);
+
+  const [formErrors, setFormErrors] = useState('Empty Form');
+  const [buttonText, setButtonText] = useState('Add garment');
+  const [buttonDisabled, setButtonDisabled] = useState(false);
 
   const { currentClothingItems } = useContext(CurrentClothingItemsContext);
 
@@ -26,10 +34,34 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
   }, [isOpen]);
 
   function onChangeNameHandler(e) {
+    if (!e.target.validity.valid) {
+      nameInputLabel.current.innerHTML = `Name (${e.target.validationMessage})`;
+      nameInputLabel.current.classList.add('form__label-error');
+      e.target.classList.add('form__input-error');
+      setFormErrors('name');
+    } else {
+      nameInputLabel.current.innerHTML = `Name`;
+      nameInputLabel.current.classList.remove('form__label-error');
+      e.target.classList.remove('form__input-error');
+      setFormErrors(formErrors.replace('name', ''));
+    }
+
     setNameInput(e.target.value);
   }
 
   function onChangeImageHandler(e) {
+    if (!e.target.validity.valid) {
+      imageInputLabel.current.innerHTML = `Name (${e.target.validationMessage})`;
+      imageInputLabel.current.classList.add('form__label-error');
+      e.target.classList.add('form__input-error');
+      setFormErrors('image');
+    } else {
+      imageInputLabel.current.innerHTML = `Name`;
+      imageInputLabel.current.classList.remove('form__label-error');
+      e.target.classList.remove('form__input-error');
+      setFormErrors(formErrors.replace('image', ''));
+    }
+
     setImageUrlInput(e.target.value);
   }
 
@@ -39,13 +71,26 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    onAddItem({
-      _id: currentClothingItems.length + 1,
-      name: nameInput,
-      weather: weatherTypeInput,
-      imageUrl: imageUrlInput,
-    });
+    if (formErrors === '') {
+      onAddItem({
+        _id: currentClothingItems.length + 1,
+        name: nameInput,
+        weather: weatherTypeInput,
+        imageUrl: imageUrlInput,
+      });
+    } else {
+      setTimeout(() => {
+        setButtonText('Add garment');
+        setButtonDisabled(false);
+      }, 2000);
+      setButtonText('Form Invalid, Try Again');
+      setButtonDisabled(true);
+    }
   }
+
+  useEffect(() => {
+    setNameInput();
+  }, []);
 
   return (
     isOpen && (
@@ -53,14 +98,22 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
         title="Add garment"
         name="garment"
         onClose={onCloseModal}
-        buttonText="Add garment"
+        buttonText={buttonText}
         onSubmit={handleSubmit}
+        isButtonDisabled={buttonDisabled}
       >
         <div className="form-modal__input-container">
-          <label htmlFor="garmentName" className="form-modal__label">
+          <label
+            ref={nameInputLabel}
+            htmlFor="garmentName"
+            className="form-modal__label"
+          >
             Name
           </label>
           <input
+            required
+            minLength={2}
+            maxLength={20}
             id="garmentName"
             placeholder="Name"
             type="text"
@@ -70,13 +123,18 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
         </div>
 
         <div className="form-modal__input-container">
-          <label htmlFor="garmentImageURL" className="form-modal__label">
+          <label
+            ref={imageInputLabel}
+            htmlFor="garmentImageURL"
+            className="form-modal__label"
+          >
             Image
           </label>
           <input
+            required
             id="garmentImageURL"
             placeholder="Image URL"
-            type="text"
+            type="url"
             className="form-modal__input form-modal__input_type_text"
             onChange={onChangeImageHandler}
           />

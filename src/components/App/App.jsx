@@ -48,7 +48,7 @@ function App() {
   }
 
   function handleAddItemSubmit(item) {
-    dbApi
+    return dbApi
       .createItem(item)
       .then((res) => {
         if (res.ok) {
@@ -57,7 +57,8 @@ function App() {
         }
         return Promise.reject(`Error: ${res.statusText}`);
       })
-      .then.catch((err) => setApiError(err));
+      .catch((err) => setApiError(err));
+
     handleModalClose();
   }
 

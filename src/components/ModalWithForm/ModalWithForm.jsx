@@ -8,6 +8,7 @@ function ModalWithForm({
   buttonText,
   onClose,
   onSubmit,
+  isButtonDisabled,
   children,
 }) {
   return (
@@ -25,7 +26,11 @@ function ModalWithForm({
       >
         {children}
 
-        <button className="button-primary form-modal__submit" type="submit">
+        <button
+          disabled={isButtonDisabled}
+          className="button-primary form-modal__submit"
+          type="submit"
+        >
           {buttonText}
         </button>
       </form>
