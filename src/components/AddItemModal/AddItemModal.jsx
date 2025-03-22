@@ -73,11 +73,12 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
     e.preventDefault();
     if (formErrors === '') {
       onAddItem({
-        _id: currentClothingItems.length + 1,
+        _id: currentClothingItems.length,
         name: nameInput,
         weather: weatherTypeInput,
         imageUrl: imageUrlInput,
       });
+      onCloseModal();
     } else {
       setTimeout(() => {
         setButtonText('Add garment');

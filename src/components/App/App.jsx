@@ -58,8 +58,6 @@ function App() {
         return Promise.reject(`Error: ${res.statusText}`);
       })
       .catch((err) => setApiError(err));
-
-    handleModalClose();
   }
 
   function handleDeleteItem() {
@@ -147,8 +145,9 @@ function App() {
                     <Profile
                       handleCardClick={(data) => {
                         setModalData(data);
-                        handleCardClick();
+                        handleCardClick(data);
                       }}
+                      handleAddCard={handleModalOpen}
                     />
                   }
                 ></Route>
