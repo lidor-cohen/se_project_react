@@ -20,7 +20,7 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
   const [weatherTypeInput, setWeatherTypeInput] =
     useState(DEFAULT_WEATHER_TYPE);
 
-  const [formErrors, setFormErrors] = useState('Empty Form');
+  const [formErrors, setFormErrors] = useState('nameimage');
   const [buttonText, setButtonText] = useState('Add garment');
   const [buttonDisabled, setButtonDisabled] = useState(false);
 
@@ -41,7 +41,7 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
       nameInputLabel.current.innerHTML = `Name (${e.target.validationMessage})`;
       nameInputLabel.current.classList.add('form__label-error');
       e.target.classList.add('form__input-error');
-      setFormErrors('name');
+      if (!formErrors.includes('name')) setFormErrors(formErrors + 'name');
     } else {
       nameInputLabel.current.innerHTML = `Name`;
       nameInputLabel.current.classList.remove('form__label-error');
@@ -54,12 +54,12 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
 
   function onChangeImageHandler(e) {
     if (!e.target.validity.valid) {
-      imageInputLabel.current.innerHTML = `Name (${e.target.validationMessage})`;
+      imageInputLabel.current.innerHTML = `Image (${e.target.validationMessage})`;
       imageInputLabel.current.classList.add('form__label-error');
       e.target.classList.add('form__input-error');
-      setFormErrors('image');
+      if (!formErrors.includes('image')) setFormErrors(formErrors + 'image');
     } else {
-      imageInputLabel.current.innerHTML = `Name`;
+      imageInputLabel.current.innerHTML = `Image`;
       imageInputLabel.current.classList.remove('form__label-error');
       e.target.classList.remove('form__input-error');
       setFormErrors(formErrors.replace('image', ''));
@@ -76,7 +76,10 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
     e.preventDefault();
     if (formErrors === '') {
       onAddItem({
-        _id: currentClothingItems.at(-1)._id + 1,
+        _id:
+          currentClothingItems.length > 0
+            ? currentClothingItems.at(-1)._id + 1
+            : 0,
         name: nameInput,
         weather: weatherTypeInput,
         imageUrl: imageUrlInput,
@@ -90,10 +93,6 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
       setButtonDisabled(true);
     }
   }
-
-  useEffect(() => {
-    setNameInput();
-  }, []);
 
   return (
     isOpen && (
@@ -120,6 +119,7 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
             id="garmentName"
             placeholder="Name"
             type="text"
+            value={nameInput}
             className="form-modal__input form-modal__input_type_text"
             onChange={onChangeNameHandler}
           />
@@ -138,6 +138,7 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
             id="garmentImageURL"
             placeholder="Image URL"
             type="url"
+            value={imageUrlInput}
             className="form-modal__input form-modal__input_type_text"
             onChange={onChangeImageHandler}
           />
