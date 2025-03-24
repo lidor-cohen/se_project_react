@@ -1,8 +1,12 @@
+// External
 import './Main.css';
+import { useState, useContext, useEffect } from 'react';
+
+// Components
 import WeatherCard from './WeatherCard/WeatherCard';
 import ItemCard from '../../ItemCard/ItemCard';
 
-import { useState, useContext, useEffect } from 'react';
+// Contexts
 import { CurrentTemperatureUnitContext } from '../../../contexts/CurrentTemperatureUnitContext';
 import { CurrentWeatherDataContext } from '../../../contexts/CurrentWeatherDataContext';
 import { CurrentClothingItemsContext } from '../../../contexts/CurrentClothingItemsContext';
@@ -33,14 +37,17 @@ function Main({ handleCardClick }) {
         {currentTemperatureUnit} / You may want to wear:
       </h2>
       <div className="main__products">
-        {filteredClothingItems.map((item) => (
-          <ItemCard
-            key={item._id}
-            image={item.imageUrl}
-            title={item.name}
-            handleCardClick={() => handleCardClick(item)}
-          />
-        ))}
+        {filteredClothingItems
+          .map((item) => (
+            <ItemCard
+              key={item._id}
+              id={item._id}
+              name={item.name}
+              imageUrl={item.imageUrl}
+              handleCardClick={() => handleCardClick(item)}
+            />
+          ))
+          .reverse()}
       </div>
     </main>
   );

@@ -1,6 +1,9 @@
+// External
+import './ModalWithForm.css';
+
+// Components
 import closeButtonImage from '../../../assets/icons/close-button-gray.svg';
 import Modal from '../Modal/Modal';
-import './ModalWithForm.css';
 
 function ModalWithForm({
   title,

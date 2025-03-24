@@ -20,15 +20,18 @@ function ClothesSection({ handleCardClick, handleAddCard }) {
         </a>
       </div>
       <div className="clothes-section__gallery">
-        {currentClothingItems.map((item) => (
-          <ItemCard
-            key={item._id}
-            image={item.imageUrl}
-            title={item.name}
-            handleCardClick={handleCardClick}
-            id={item._id}
-          />
-        ))}
+        {currentClothingItems
+          .map((item) => (
+            <ItemCard
+              key={item._id}
+              id={item._id}
+              name={item.name}
+              imageUrl={item.imageUrl}
+              weather={item.weather}
+              handleCardClick={() => handleCardClick(item)}
+            />
+          ))
+          .reverse()}
       </div>
     </div>
   );

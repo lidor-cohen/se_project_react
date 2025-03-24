@@ -1,17 +1,26 @@
+// External
 import './ItemModal.css';
-import closeButtonImage from '../../../assets/icons/close-button.svg';
+import { useEffect, useState } from 'react';
+
+// Components
 import Modal from '../Modal/Modal';
-import { useState } from 'react';
+import closeButtonImage from '../../../assets/icons/close-button.svg';
 
 function ItemModal({
   isOpen,
-  image,
-  title,
+  name,
+  imageUrl,
   weatherCondition,
   onDelete,
   onClose,
 }) {
   const [deleteConfimationActive, setDeleteConfimationActive] = useState(false);
+
+  // Everytime the modal opens on an item, switch to the
+  // item view instead of the delete modal view
+  useEffect(() => {
+    setDeleteConfimationActive(false);
+  }, [isOpen]);
 
   return (
     isOpen && (
@@ -52,13 +61,13 @@ function ItemModal({
             onClose={onClose}
           >
             <img
-              src={new URL(image, import.meta.url).href}
+              src={new URL(imageUrl, import.meta.url).href}
               alt="item image"
               className="item-modal__image"
             />
             <div className="item-modal__description">
               <div className="item-modal__info">
-                <span className="item-modal__title">{title}</span>
+                <span className="item-modal__name">{name}</span>
                 <span className="item-modal__weather">
                   Weather: {weatherCondition}
                 </span>

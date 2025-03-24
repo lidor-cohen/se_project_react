@@ -1,17 +1,18 @@
+// External
 import './ItemCard.css';
 
-function ItemCard({ image, title, handleCardClick, id, weather }) {
+function ItemCard({ id, name, imageUrl, weather, handleCardClick }) {
   return (
     <div
       className="item-card"
       style={{
-        backgroundImage: `url(${new URL(image, import.meta.url).href})`,
+        backgroundImage: `url(${new URL(imageUrl, import.meta.url).href})`,
       }}
       onClick={() => {
-        handleCardClick({ _id: id, name: title, imageUrl: image, weather });
+        handleCardClick({ id, name, imageUrl, weather });
       }}
     >
-      <p className="item-card__title">{title}</p>
+      <p className="item-card__name">{name}</p>
     </div>
   );
 }

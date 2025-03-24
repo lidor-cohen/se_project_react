@@ -1,9 +1,13 @@
+// External
 import './Header.css';
-
 import { Link } from 'react-router-dom';
+
+// Components
 import ToggleSwitch from './ToggleSwitch/ToggleSwitch';
 
-function Header({ cityName, handleButtonOpen, handleButtonClose }) {
+// Contexts (empty)
+
+function Header({ cityName, handleButtonOpen }) {
   const currentDate = new Date().toLocaleString('en-EN', {
     month: 'long',
     day: 'numeric',

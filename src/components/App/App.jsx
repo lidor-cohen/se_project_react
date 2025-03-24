@@ -1,11 +1,11 @@
 // External
+import './App.css';
 import { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import WeatherAPI from '../../utils/WeatherAPI.js';
 import dbApi from '../../utils/dbApi.js';
 
 // Components
-import './App.css';
 import Header from '../Layout/Header/Header.jsx';
 import Main from '../Layout/Main/Main.jsx';
 import Footer from '../Layout/Footer/Footer.jsx';
@@ -36,9 +36,11 @@ function App() {
   // Takes the card data, sets the relevant modal data,
   // also sents the currently selected item id and then
   // sets the active modal as the item modal
+  // item object: { id, name, imageUrl }
   function handleCardClick(item) {
-    setSelectedItemId(item._id);
+    setModalData(item);
     setActiveModal('item-modal');
+    setSelectedItemId(item._id);
   }
 
   // Handle opening the add garment modal
@@ -47,7 +49,7 @@ function App() {
   }
 
   // Sets the active
-  function closeOpenModal() {
+  function closeModal() {
     setActiveModal('');
   }
 
@@ -55,34 +57,28 @@ function App() {
   // function takes an item object and returns a promise.
   function handleAddItemSubmit(item) {
     return dbApi
-      .createItem(item)
+      .createItem({
+        name: item.name,
+        imageUrl: item.imageUrl,
+        weather: item.weather,
+      })
       .then((res) => {
-        if (res.ok) {
-          setCurrentClothingItems([item, ...currentClothingItems]);
-          return Promise.resolve();
-        }
-        return Promise.reject(`Error: ${res.statusText}`);
+        setCurrentClothingItems([...currentClothingItems, item]);
+        closeModal();
       })
       .catch(console.error);
   }
 
   // Calls the items api with the deleteItem function.
   // function takes an item id and returns a promise.
-  function handleDeleteItem(id) {
+  function handleDeleteItem() {
     dbApi
-      .deleteItem({ id })
+      .deleteItem({ id: selectedItemId })
       .then((res) => {
-        if (res.ok) {
-          handleModalClose();
-          dbApi
-            .getItems()
-            .then((res) => res.json())
-            .then((arr) => {
-              setCurrentClothingItems(arr.reverse());
-            });
-          return Promise.resolve();
-        }
-        return Promise.reject(`Error: ${res.statusText}`);
+        closeModal();
+        setCurrentClothingItems(
+          currentClothingItems.filter((item) => item._id !== selectedItemId)
+        );
       })
       .catch((err) => console.log(err));
   }
@@ -93,12 +89,9 @@ function App() {
     // set the global context state variable to this list.
     // then, reverse this list so it will display the last item
     // first (Newest added item will be displayed first).
-    dbApi
-      .getItems()
-      .then((res) => res.json())
-      .then((arr) => {
-        setCurrentClothingItems(arr.reverse());
-      });
+    dbApi.getItems().then((arr) => {
+      setCurrentClothingItems(arr);
+    });
 
     // Call the weather api to get the current weather as
     // an object containing:
@@ -116,6 +109,8 @@ function App() {
       .catch(console.error);
   }, []);
 
+  if (!currentWeatherData) return <div>loading..</div>;
+
   return (
     <div className="page">
       <CurrentClothingItemsContext.Provider value={{ currentClothingItems }}>
@@ -126,47 +121,35 @@ function App() {
             <AddItemModal
               isOpen={activeModal === 'add-garment'}
               onAddItem={handleAddItemSubmit}
-              onCloseModal={handleModalClose}
+              onCloseModal={closeModal}
             />
 
             <ItemModal
               isOpen={activeModal === 'item-modal'}
-              title={modalData.name}
-              image={modalData.imageUrl}
+              name={modalData.name}
+              imageUrl={modalData.imageUrl}
               weatherCondition={modalData.weather}
-              onClose={() => {
-                setActiveModal('');
-              }}
+              onClose={closeModal}
               onDelete={handleDeleteItem}
             />
 
             <div className="page__content">
               <Header
                 cityName={currentWeatherData.cityName}
-                handleButtonOpen={handleModalOpen}
+                handleButtonOpen={openAddGarmentModal}
               />
 
               <Routes>
                 <Route
                   path="/"
-                  element={
-                    <Main
-                      handleCardClick={(data) => {
-                        setModalData(data);
-                        handleCardClick(data);
-                      }}
-                    />
-                  }
+                  element={<Main handleCardClick={handleCardClick} />}
                 ></Route>
                 <Route
                   path="/profile"
                   element={
                     <Profile
-                      handleCardClick={(data) => {
-                        setModalData(data);
-                        handleCardClick(data);
-                      }}
-                      handleAddCard={handleModalOpen}
+                      handleCardClick={handleCardClick}
+                      handleAddCard={openAddGarmentModal}
                     />
                   }
                 ></Route>

@@ -1,3 +1,4 @@
+// External
 import './Footer.css';
 
 function Footer() {

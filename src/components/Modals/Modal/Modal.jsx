@@ -1,6 +1,9 @@
+// External
 import './Modal.css';
-import defaultCloseButtonImage from '../../../assets/icons/close-button.svg';
 import { useEffect, useRef, useState } from 'react';
+
+// Components
+import defaultCloseButtonImage from '../../../assets/icons/close-button.svg';
 
 function Modal({
   modalClass,
