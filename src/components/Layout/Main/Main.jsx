@@ -3,7 +3,6 @@ import WeatherCard from './WeatherCard/WeatherCard';
 import ItemCard from '../../ItemCard/ItemCard';
 
 import { useState, useContext, useEffect } from 'react';
-
 import { CurrentTemperatureUnitContext } from '../../../contexts/CurrentTemperatureUnitContext';
 import { CurrentWeatherDataContext } from '../../../contexts/CurrentWeatherDataContext';
 import { CurrentClothingItemsContext } from '../../../contexts/CurrentClothingItemsContext';

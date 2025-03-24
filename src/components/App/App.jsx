@@ -22,31 +22,37 @@ function App() {
   const [currentWeatherData, setCurrentWeatherData] = useState(null);
   const [activeModal, setActiveModal] = useState('');
   const [modalData, setModalData] = useState({});
-  const [apiError, setApiError] = useState('');
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState('F');
   const [currentClothingItems, setCurrentClothingItems] = useState([]);
-
   const [selectedItemId, setSelectedItemId] = useState(-1);
 
+  // Toggle switch global context
   function handleToggleSwitchChange() {
     setCurrentTemperatureUnit((prev) =>
       prev === 'F' ? (prev = 'C') : (prev = 'F')
     );
   }
 
+  // Takes the card data, sets the relevant modal data,
+  // also sents the currently selected item id and then
+  // sets the active modal as the item modal
   function handleCardClick(item) {
     setSelectedItemId(item._id);
     setActiveModal('item-modal');
   }
 
-  function handleModalOpen() {
+  // Handle opening the add garment modal
+  function openAddGarmentModal() {
     setActiveModal('add-garment');
   }
 
-  function handleModalClose() {
+  // Sets the active
+  function closeOpenModal() {
     setActiveModal('');
   }
 
+  // Calls the items api with the createItem function.
+  // function takes an item object and returns a promise.
   function handleAddItemSubmit(item) {
     return dbApi
       .createItem(item)
@@ -57,12 +63,14 @@ function App() {
         }
         return Promise.reject(`Error: ${res.statusText}`);
       })
-      .catch((err) => setApiError(err));
+      .catch(console.error);
   }
 
-  function handleDeleteItem() {
+  // Calls the items api with the deleteItem function.
+  // function takes an item id and returns a promise.
+  function handleDeleteItem(id) {
     dbApi
-      .deleteItem({ id: selectedItemId })
+      .deleteItem({ id })
       .then((res) => {
         if (res.ok) {
           handleModalClose();
@@ -79,7 +87,12 @@ function App() {
       .catch((err) => console.log(err));
   }
 
+  // On app mount
   useEffect(() => {
+    // Call the items api to get all of the items and
+    // set the global context state variable to this list.
+    // then, reverse this list so it will display the last item
+    // first (Newest added item will be displayed first).
     dbApi
       .getItems()
       .then((res) => res.json())
@@ -87,14 +100,21 @@ function App() {
         setCurrentClothingItems(arr.reverse());
       });
 
+    // Call the weather api to get the current weather as
+    // an object containing:
+    // {
+    //    cityName,
+    //    temp: {
+    //      tempC,
+    //      tempF
+    //    },
+    //    feeling (cold, hot, warm),
+    //    weather (sunny, cloudy, rainy, etc...)
+    // }
     WeatherAPI.fetchData()
       .then((res) => setCurrentWeatherData(res))
-      .catch((err) => {
-        setApiError(err);
-      });
+      .catch(console.error);
   }, []);
-
-  if (!currentWeatherData) return <div>{apiError}</div>;
 
   return (
     <div className="page">
@@ -109,17 +129,16 @@ function App() {
               onCloseModal={handleModalClose}
             />
 
-            {activeModal === 'item-modal' && (
-              <ItemModal
-                title={modalData.name}
-                image={modalData.imageUrl}
-                weatherCondition={modalData.weather}
-                onClose={() => {
-                  setActiveModal('');
-                }}
-                onDelete={handleDeleteItem}
-              />
-            )}
+            <ItemModal
+              isOpen={activeModal === 'item-modal'}
+              title={modalData.name}
+              image={modalData.imageUrl}
+              weatherCondition={modalData.weather}
+              onClose={() => {
+                setActiveModal('');
+              }}
+              onDelete={handleDeleteItem}
+            />
 
             <div className="page__content">
               <Header
