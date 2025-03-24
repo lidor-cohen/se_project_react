@@ -1,9 +1,8 @@
 import './ClothesSection.css';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 
-import { CurrentClothingItemsContext } from '../../contexts/CurrentClothingItemsContext';
-
-import ItemCard from '../ItemCard/ItemCard';
+import { CurrentClothingItemsContext } from '../../../../contexts/CurrentClothingItemsContext';
+import ItemCard from '../../../ItemCard/ItemCard';
 
 function ClothesSection({ handleCardClick, handleAddCard }) {
   const { currentClothingItems } = useContext(CurrentClothingItemsContext);
@@ -26,9 +25,8 @@ function ClothesSection({ handleCardClick, handleAddCard }) {
             key={item._id}
             image={item.imageUrl}
             title={item.name}
-            handleCardClick={() => {
-              handleCardClick(item);
-            }}
+            handleCardClick={handleCardClick}
+            id={item._id}
           />
         ))}
       </div>

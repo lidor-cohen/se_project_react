@@ -3,7 +3,7 @@ import './AddItemModal.css';
 import ModalWithForm from '../ModalWithForm/ModalWithForm';
 import { useEffect, useState, useContext, useRef } from 'react';
 
-import { CurrentClothingItemsContext } from '../../contexts/CurrentClothingItemsContext';
+import { CurrentClothingItemsContext } from '../../../contexts/CurrentClothingItemsContext';
 
 const DEFAULT_WEATHER_TYPE = 'hot'; // Options: hot, cold, warm
 
@@ -73,7 +73,7 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
     e.preventDefault();
     if (formErrors === '') {
       onAddItem({
-        _id: currentClothingItems.length,
+        _id: currentClothingItems.at(-1)._id + 1,
         name: nameInput,
         weather: weatherTypeInput,
         imageUrl: imageUrlInput,

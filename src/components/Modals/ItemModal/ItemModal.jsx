@@ -1,5 +1,5 @@
 import './ItemModal.css';
-import closeButtonImage from '../../assets/icons/close-button.svg';
+import closeButtonImage from '../../../assets/icons/close-button.svg';
 import Modal from '../Modal/Modal';
 import { useState } from 'react';
 

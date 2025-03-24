@@ -1,9 +1,7 @@
 import './Header.css';
 
-import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-
-import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
+import ToggleSwitch from './ToggleSwitch/ToggleSwitch';
 
 function Header({ cityName, handleButtonOpen, handleButtonClose }) {
   const currentDate = new Date().toLocaleString('en-EN', {

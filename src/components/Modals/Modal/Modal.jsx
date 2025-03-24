@@ -1,5 +1,5 @@
 import './Modal.css';
-import defaultCloseButtonImage from '../../assets/icons/close-button.svg';
+import defaultCloseButtonImage from '../../../assets/icons/close-button.svg';
 import { useEffect, useRef, useState } from 'react';
 
 function Modal({

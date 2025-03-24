@@ -6,12 +6,12 @@ import dbApi from '../../utils/dbApi.js';
 
 // Components
 import './App.css';
-import Header from '../Header/Header';
-import Main from '../Main/Main';
-import Footer from '../Footer/Footer';
-import ItemModal from '../ItemModal/ItemModal';
-import Profile from '../Profile/Profile';
-import AddItemModal from '../AddItemModal/AddItemModal.jsx';
+import Header from '../Layout/Header/Header.jsx';
+import Main from '../Layout/Main/Main.jsx';
+import Footer from '../Layout/Footer/Footer.jsx';
+import ItemModal from '../Modals/ItemModal/ItemModal';
+import Profile from '../Layout/Profile/Profile.jsx';
+import AddItemModal from '../Modals/AddItemModal/AddItemModal.jsx';
 
 // Contexts
 import { CurrentTemperatureUnitContext } from '../../contexts/CurrentTemperatureUnitContext';
