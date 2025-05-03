@@ -51,3 +51,16 @@
 .form-modal__input_type_radio {
   accent-color: black;
 }
+
+.form-modal__buttons-container {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.form-modal__sub-button {
+  font-weight: 700;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}

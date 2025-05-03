@@ -1,0 +1,7 @@
+.form-modal__input-container-incorrect * {
+  color: #ff4d00;
+}
+
+.form-modal__input-container-incorrect .form-modal__input {
+  border-bottom: 1px solid #ff4d00;
+}

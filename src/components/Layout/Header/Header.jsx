@@ -5,9 +5,13 @@ import { Link } from 'react-router-dom';
 // Components
 import ToggleSwitch from './ToggleSwitch/ToggleSwitch';
 
-// Contexts (empty)
+// Contexts
+import { CurrentUserContext } from '../../../contexts/CurrentUserContext';
+import { useContext } from 'react';
 
-function Header({ cityName, handleButtonOpen }) {
+function Header({ cityName, setActiveModal }) {
+  const { currentUser } = useContext(CurrentUserContext);
+
   const currentDate = new Date().toLocaleString('en-EN', {
     month: 'long',
     day: 'numeric',
@@ -24,25 +28,43 @@ function Header({ cityName, handleButtonOpen }) {
         </h2>
       </div>
 
-      <ul className="header__right-section">
-        <ToggleSwitch value={false} onChange={() => {}} />
-        <li
-          className="header__nav-item header__nav-item_type_add-clothes"
-          onClick={handleButtonOpen}
-        >
-          + Add Clothes
-        </li>
-        <Link to="/profile">
-          <li className="header__nav-item header__nav-item_type_account">
-            Terrence Tegegne
-            <img
-              className="header__user-image"
-              src="https://i.ibb.co/9HnNNzsk/2e259a8c8558ae5104a4ec0d6ae39021.png"
-              alt="user image"
-            />
+      {currentUser ? (
+        <ul className="header__right-section">
+          <ToggleSwitch value={false} onChange={() => {}} />
+          <li
+            className="header__nav-item header__nav-item_type_add-clothes"
+            onClick={() => setActiveModal('add-garment')}
+          >
+            + Add Clothes
           </li>
-        </Link>
-      </ul>
+          <Link to="/profile">
+            <li className="header__nav-item header__nav-item_type_account">
+              Terrence Tegegne
+              <img
+                className="header__user-image"
+                src="https://i.ibb.co/9HnNNzsk/2e259a8c8558ae5104a4ec0d6ae39021.png"
+                alt="user image"
+              />
+            </li>
+          </Link>
+        </ul>
+      ) : (
+        <ul className="header__right-section">
+          <ToggleSwitch value={false} onChange={() => {}} />
+          <li
+            className="header__nav-item header__nav-item_type_add-clothes"
+            onClick={() => setActiveModal('signup-modal')}
+          >
+            Sign Up
+          </li>
+          <li
+            className="header__nav-item header__nav-item_type_add-clothes"
+            onClick={() => setActiveModal('signin-modal')}
+          >
+            Sign In
+          </li>
+        </ul>
+      )}
     </header>
   );
 }

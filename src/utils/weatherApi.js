@@ -47,4 +47,5 @@ class WeatherAPI {
   }
 }
 
-export default new WeatherAPI();
+const weatherApi = new WeatherAPI();
+export default weatherApi;

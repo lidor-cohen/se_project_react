@@ -9,6 +9,7 @@ function ModalWithForm({
   title,
   name,
   buttonText,
+  subButton,
   onClose,
   onSubmit,
   isButtonDisabled,
@@ -28,14 +29,20 @@ function ModalWithForm({
         noValidate
       >
         {children}
-
-        <button
-          disabled={isButtonDisabled}
-          className="button-primary form-modal__submit"
-          type="submit"
-        >
-          {buttonText}
-        </button>
+        <div className="form-modal__buttons-container">
+          <button
+            disabled={isButtonDisabled}
+            className="button-primary form-modal__submit"
+            type="submit"
+          >
+            {buttonText}
+          </button>
+          {subButton && (
+            <a className="form-modal__sub-button" onClick={subButton.action}>
+              {subButton.text}
+            </a>
+          )}
+        </div>
       </form>
     </Modal>
   );

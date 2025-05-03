@@ -2,8 +2,10 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import WeatherAPI from '../../utils/WeatherAPI.js';
-import dbApi from '../../utils/dbApi.js';
+
+import weatherApi from '../../utils/WeatherApi.js';
+import dbApi from '../../utils/DatabaseApi.js';
+import authApi from '../../utils/auth.js';
 
 // Components
 import Header from '../Layout/Header/Header.jsx';
@@ -12,19 +14,34 @@ import Footer from '../Layout/Footer/Footer.jsx';
 import ItemModal from '../Modals/ItemModal/ItemModal';
 import Profile from '../Layout/Profile/Profile.jsx';
 import AddItemModal from '../Modals/AddItemModal/AddItemModal.jsx';
+import SignInModal from '../Modals/SignInModal/SignInModal.jsx';
+import SignUpModal from '../Modals/SignUpModal/SignUpModal.jsx';
 
 // Contexts
 import { CurrentTemperatureUnitContext } from '../../contexts/CurrentTemperatureUnitContext';
 import { CurrentWeatherDataContext } from '../../contexts/CurrentWeatherDataContext.js';
 import { CurrentClothingItemsContext } from '../../contexts/CurrentClothingItemsContext.js';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext.js';
 
 function App() {
   const [currentWeatherData, setCurrentWeatherData] = useState(null);
-  const [activeModal, setActiveModal] = useState('');
-  const [modalData, setModalData] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState('F');
   const [currentClothingItems, setCurrentClothingItems] = useState([]);
+  const [currentUser, setCurrentUser] = useState(false);
+
+  const [activeModal, setActiveModal] = useState('');
+  const [modalData, setModalData] = useState({});
   const [selectedItemId, setSelectedItemId] = useState(-1);
+
+  // Sign in user
+  function handleSignIn({ email, password }) {
+    return authApi.login({ email, password }).then(() => {});
+  }
+
+  // Sign up user
+  function handleSignUp({ email, password, name, avatar }) {
+    return authApi.signup({ email, password, name, avatar });
+  }
 
   // Toggle switch global context
   function handleToggleSwitchChange() {
@@ -104,7 +121,8 @@ function App() {
     //    feeling (cold, hot, warm),
     //    weather (sunny, cloudy, rainy, etc...)
     // }
-    WeatherAPI.fetchData()
+    weatherApi
+      .fetchData()
       .then((res) => setCurrentWeatherData(res))
       .catch(console.error);
   }, []);
@@ -113,53 +131,69 @@ function App() {
 
   return (
     <div className="page">
-      <CurrentClothingItemsContext.Provider value={{ currentClothingItems }}>
-        <CurrentWeatherDataContext.Provider value={{ currentWeatherData }}>
-          <CurrentTemperatureUnitContext.Provider
-            value={{ currentTemperatureUnit, handleToggleSwitchChange }}
-          >
-            <AddItemModal
-              isOpen={activeModal === 'add-garment'}
-              onAddItem={handleAddItemSubmit}
-              onCloseModal={closeModal}
-            />
-
-            <ItemModal
-              isOpen={activeModal === 'item-modal'}
-              name={modalData.name}
-              imageUrl={modalData.imageUrl}
-              weatherCondition={modalData.weather}
-              onClose={closeModal}
-              onDelete={handleDeleteItem}
-            />
-
-            <div className="page__content">
-              <Header
-                cityName={currentWeatherData.cityName}
-                handleButtonOpen={openAddGarmentModal}
+      <CurrentUserContext.Provider value={{ currentUser }}>
+        <CurrentClothingItemsContext.Provider value={{ currentClothingItems }}>
+          <CurrentWeatherDataContext.Provider value={{ currentWeatherData }}>
+            <CurrentTemperatureUnitContext.Provider
+              value={{ currentTemperatureUnit, handleToggleSwitchChange }}
+            >
+              <SignInModal
+                isOpen={activeModal === 'signin-modal'}
+                closeModal={closeModal}
+                signInUser={handleSignIn}
+                setActiveModal={setActiveModal}
               />
 
-              <Routes>
-                <Route
-                  path="/"
-                  element={<Main handleCardClick={handleCardClick} />}
-                ></Route>
-                <Route
-                  path="/profile"
-                  element={
-                    <Profile
-                      handleCardClick={handleCardClick}
-                      handleAddCard={openAddGarmentModal}
-                    />
-                  }
-                ></Route>
-              </Routes>
+              <SignUpModal
+                isOpen={activeModal === 'signup-modal'}
+                closeModal={closeModal}
+                signUpUser={handleSignUp}
+                setActiveModal={setActiveModal}
+              />
 
-              <Footer />
-            </div>
-          </CurrentTemperatureUnitContext.Provider>
-        </CurrentWeatherDataContext.Provider>
-      </CurrentClothingItemsContext.Provider>
+              <AddItemModal
+                isOpen={activeModal === 'add-garment'}
+                onAddItem={handleAddItemSubmit}
+                onCloseModal={closeModal}
+              />
+
+              <ItemModal
+                isOpen={activeModal === 'item-modal'}
+                name={modalData.name}
+                imageUrl={modalData.imageUrl}
+                weatherCondition={modalData.weather}
+                onClose={closeModal}
+                onDelete={handleDeleteItem}
+              />
+
+              <div className="page__content">
+                <Header
+                  cityName={currentWeatherData.cityName}
+                  setActiveModal={setActiveModal}
+                />
+
+                <Routes>
+                  <Route
+                    path="/"
+                    element={<Main handleCardClick={handleCardClick} />}
+                  ></Route>
+                  <Route
+                    path="/profile"
+                    element={
+                      <Profile
+                        handleCardClick={handleCardClick}
+                        handleAddCard={openAddGarmentModal}
+                      />
+                    }
+                  ></Route>
+                </Routes>
+
+                <Footer />
+              </div>
+            </CurrentTemperatureUnitContext.Provider>
+          </CurrentWeatherDataContext.Provider>
+        </CurrentClothingItemsContext.Provider>
+      </CurrentUserContext.Provider>
     </div>
   );
 }

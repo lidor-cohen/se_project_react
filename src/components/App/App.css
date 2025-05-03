@@ -27,6 +27,8 @@ body:has(.modal) {
 
 /* Reset default styling of anchor tags */
 a {
+  font-family: 'Cabinet Grotesk';
+
   text-decoration: none;
   color: inherit;
 }

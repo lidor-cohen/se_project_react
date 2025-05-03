@@ -1,4 +1,4 @@
-class DBAPI {
+class DatabaseAPI {
   constructor() {
     this._baseUrl = 'http://localhost:3001';
   }
@@ -43,5 +43,5 @@ class DBAPI {
   }
 }
 
-const dbApi = new DBAPI();
+const dbApi = new DatabaseAPI();
 export default dbApi;
