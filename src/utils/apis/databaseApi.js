@@ -43,5 +43,5 @@ class DatabaseAPI {
   }
 }
 
-const dbApi = new DatabaseAPI();
-export default dbApi;
+const databaseApi = new DatabaseAPI();
+export default databaseApi;

@@ -1,12 +1,12 @@
 import './SignUpModal.css';
-import ModalWithForm from '../ModalWithForm/ModalWithForm';
+import ModalWithForm from '../ModalWithForm';
 import { useRef, useState } from 'react';
 import {
   isNameValid,
   isEmailValid,
   isAvatarValid,
   isPasswordValid,
-} from '../../../utils/validation';
+} from '../../../../utils/validation';
 
 function SignUpModal({ isOpen, signUpUser, closeModal, setActiveModal }) {
   const [userData, setUserData] = useState({

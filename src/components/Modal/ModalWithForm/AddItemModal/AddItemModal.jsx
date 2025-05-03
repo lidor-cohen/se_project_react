@@ -3,10 +3,10 @@ import './AddItemModal.css';
 import { useEffect, useState, useContext, useRef } from 'react';
 
 // Components
-import ModalWithForm from '../ModalWithForm/ModalWithForm';
+import ModalWithForm from '../ModalWithForm';
 
 // Contexts
-import { CurrentClothingItemsContext } from '../../../contexts/CurrentClothingItemsContext';
+import { CurrentClothingItemsContext } from '../../../../contexts/CurrentClothingItemsContext';
 
 const DEFAULT_WEATHER_TYPE = 'hot'; // Options: hot, cold, warm
 

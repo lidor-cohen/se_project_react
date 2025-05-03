@@ -3,7 +3,7 @@ import './ItemModal.css';
 import { useEffect, useState } from 'react';
 
 // Components
-import Modal from '../Modal/Modal';
+import Modal from '../Modal';
 import closeButtonImage from '../../../assets/icons/close-button.svg';
 
 function ItemModal({

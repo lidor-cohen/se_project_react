@@ -1,5 +1,5 @@
 import './SignInModal.css';
-import ModalWithForm from '../ModalWithForm/ModalWithForm';
+import ModalWithForm from '../ModalWithForm';
 import { useRef, useState } from 'react';
 
 function SignInModal({ isOpen, signInUser, closeModal, setActiveModal }) {

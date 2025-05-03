@@ -10,7 +10,7 @@ function WeatherCard({ temp, weather }) {
   const currentHour = new Date().getHours();
   const isDayTime = currentHour > 6 && currentHour < 20;
 
-  const baseBackroundURL = `../../../../assets/weathercard-${
+  const baseBackroundURL = `./weathercard-${
     isDayTime ? 'day' : 'night'
   }/${weather}.png`;
 

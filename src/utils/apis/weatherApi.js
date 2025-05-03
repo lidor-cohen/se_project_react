@@ -2,7 +2,7 @@ import {
   longitude as lon,
   latitude as lat,
   weatherApiKey as apiKey,
-} from './constants';
+} from '../constants';
 
 class WeatherAPI {
   constructor() {

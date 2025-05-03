@@ -1,5 +1,6 @@
 // External
 import './Header.css';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 // Components
@@ -7,9 +8,8 @@ import ToggleSwitch from './ToggleSwitch/ToggleSwitch';
 
 // Contexts
 import { CurrentUserContext } from '../../../contexts/CurrentUserContext';
-import { useContext } from 'react';
 
-function Header({ cityName, setActiveModal }) {
+function Header({ cityName, openModal }) {
   const { currentUser } = useContext(CurrentUserContext);
 
   const currentDate = new Date().toLocaleString('en-EN', {
@@ -30,10 +30,10 @@ function Header({ cityName, setActiveModal }) {
 
       {currentUser ? (
         <ul className="header__right-section">
-          <ToggleSwitch value={false} onChange={() => {}} />
+          <ToggleSwitch />
           <li
             className="header__nav-item header__nav-item_type_add-clothes"
-            onClick={() => setActiveModal('add-garment')}
+            onClick={() => openModal('add-garment')}
           >
             + Add Clothes
           </li>
@@ -53,13 +53,13 @@ function Header({ cityName, setActiveModal }) {
           <ToggleSwitch value={false} onChange={() => {}} />
           <li
             className="header__nav-item header__nav-item_type_add-clothes"
-            onClick={() => setActiveModal('signup-modal')}
+            onClick={() => openModal('signup-modal')}
           >
             Sign Up
           </li>
           <li
             className="header__nav-item header__nav-item_type_add-clothes"
-            onClick={() => setActiveModal('signin-modal')}
+            onClick={() => openModal('signin-modal')}
           >
             Sign In
           </li>

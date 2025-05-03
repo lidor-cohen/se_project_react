@@ -3,7 +3,7 @@ import './Modal.css';
 import { useEffect, useRef, useState } from 'react';
 
 // Components
-import defaultCloseButtonImage from '../../../assets/icons/close-button.svg';
+import defaultCloseButtonImage from '../../assets/icons/close-button.svg';
 
 function Modal({
   modalClass,

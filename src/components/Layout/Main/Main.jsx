@@ -4,17 +4,13 @@ import { useState, useContext, useEffect } from 'react';
 
 // Components
 import WeatherCard from './WeatherCard/WeatherCard';
-import ItemCard from '../../ItemCard/ItemCard';
+import ItemCard from '../../Cards/ItemCard/ItemCard';
 
 // Contexts
 import { CurrentTemperatureUnitContext } from '../../../contexts/CurrentTemperatureUnitContext';
-import { CurrentWeatherDataContext } from '../../../contexts/CurrentWeatherDataContext';
-import { CurrentClothingItemsContext } from '../../../contexts/CurrentClothingItemsContext';
 
-function Main({ handleCardClick }) {
+function Main({ handleCardClick, currentWeatherData, currentClothingItems }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
-  const { currentWeatherData } = useContext(CurrentWeatherDataContext);
-  const { currentClothingItems } = useContext(CurrentClothingItemsContext);
 
   const [filteredClothingItems, setFilteredClothingItems] = useState([]);
 

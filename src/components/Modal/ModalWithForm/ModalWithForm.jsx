@@ -3,7 +3,7 @@ import './ModalWithForm.css';
 
 // Components
 import closeButtonImage from '../../../assets/icons/close-button-gray.svg';
-import Modal from '../Modal/Modal';
+import Modal from '../../Modal/Modal';
 
 function ModalWithForm({
   title,
