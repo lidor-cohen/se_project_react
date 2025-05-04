@@ -14,8 +14,7 @@ export function useClothingItems() {
       .then((newItem) => {
         setCurrentClothingItems([...currentClothingItems, item]);
         return newItem;
-      })
-      .catch(console.error);
+      });
   }
 
   // Calls the items api with the deleteItem function.

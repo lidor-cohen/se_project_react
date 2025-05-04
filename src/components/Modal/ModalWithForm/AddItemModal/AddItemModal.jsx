@@ -12,7 +12,7 @@ import { CurrentClothingItemsContext } from '../../../../contexts/CurrentClothin
 
 const DEFAULT_WEATHER_TYPE = 'hot'; // Options: hot, cold, warm
 
-function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
+function AddItemModal({ isOpen, onAddItem, closeModal }) {
   const [nameInput, setNameInput] = useState('');
   const [imageUrlInput, setImageUrlInput] = useState('');
   const [weatherTypeInput, setWeatherTypeInput] =
@@ -73,7 +73,7 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
         name: nameInput,
         weather: weatherTypeInput,
         imageUrl: imageUrlInput,
-      });
+      }).then(closeModal);
     } else {
       setTimeout(() => {
         setButtonText('Add garment');
@@ -89,7 +89,7 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
       <ModalWithForm
         title="Add garment"
         name="garment"
-        onClose={onCloseModal}
+        onClose={closeModal}
         buttonText={buttonText}
         onSubmit={handleSubmit}
         isButtonDisabled={buttonDisabled}
@@ -111,16 +111,6 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
           label="Image"
           value={imageUrlInput}
           onChange={onChangeImageHandler}
-          required={true}
-        />
-
-        <FormInput
-          id="garmentName"
-          type="text"
-          label="Name"
-          minLength={2}
-          maxLength={20}
-          onChange={onChangeNameHandler}
           required={true}
         />
 

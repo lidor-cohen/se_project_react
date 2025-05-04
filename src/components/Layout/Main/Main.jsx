@@ -40,7 +40,10 @@ function Main({ handleCardClick, currentWeatherData, currentClothingItems }) {
               id={item._id}
               name={item.name}
               imageUrl={item.imageUrl}
+              weather={item.weather}
               handleCardClick={() => handleCardClick(item)}
+              likes={item.likes}
+              owner={item.owner}
             />
           ))
           .reverse()}

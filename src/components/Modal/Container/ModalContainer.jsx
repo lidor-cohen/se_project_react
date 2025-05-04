@@ -38,7 +38,7 @@ function ModalContainer({
       <AddItemModal
         isOpen={activeModal === 'add-garment'}
         onAddItem={onAddItem}
-        onCloseModal={closeModal}
+        closeModal={closeModal}
       />
 
       <ItemModal

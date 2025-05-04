@@ -29,6 +29,8 @@ function ClothesSection({ handleCardClick, handleAddCard }) {
               imageUrl={item.imageUrl}
               weather={item.weather}
               handleCardClick={() => handleCardClick(item)}
+              likes={item.likes}
+              owner={item.owner}
             />
           ))
           .reverse()}

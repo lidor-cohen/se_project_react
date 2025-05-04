@@ -51,3 +51,7 @@
   color: #ff4d00;
   margin-bottom: 24px;
 }
+
+.item-modal__image {
+  max-height: 500px;
+}

@@ -6,6 +6,7 @@ import { CurrentWeatherDataContext } from './CurrentWeatherDataContext';
 import { CurrentTemperatureUnitContext } from './CurrentTemperatureUnitContext';
 import { CurrentClothingItemsContext } from './CurrentClothingItemsContext.js';
 import { CurrentUserContext } from './CurrentUserContext.js';
+import { CurrentCardContext } from './CurrentCardContext.js';
 
 // Apis
 import authApi from '../utils/apis/authApi.js';
@@ -16,9 +17,11 @@ function AppContextProvider({
   currentWeatherData,
   currentClothingItems,
 }) {
+  const [currentCard, setCurrentCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState('F');
   const [currentUser, setCurrentUser] = useState({
     isLoggedIn: false,
+    _id: '',
     name: '',
     email: '',
     avatar: '',
@@ -37,6 +40,7 @@ function AppContextProvider({
     return authApi.getUser({ token }).then((user) =>
       setCurrentUser({
         isLoggedIn: true,
+        _id: user._id,
         name: user.name,
         email: user.email,
         avatar: user.avatar,
@@ -80,7 +84,11 @@ function AppContextProvider({
           <CurrentTemperatureUnitContext.Provider
             value={{ currentTemperatureUnit, handleToggleSwitchChange }}
           >
-            {children}
+            <CurrentCardContext.Provider
+              value={{ currentCard, setCurrentCard }}
+            >
+              {children}
+            </CurrentCardContext.Provider>
           </CurrentTemperatureUnitContext.Provider>
         </CurrentWeatherDataContext.Provider>
       </CurrentClothingItemsContext.Provider>

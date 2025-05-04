@@ -25,11 +25,9 @@ function App() {
     useClothingItems();
   const {
     activeModal,
-    modalData,
     selectedItemId,
     openModal,
     closeModal,
-    setModalData,
     setSelectedItemId,
   } = useModalState();
 
@@ -38,7 +36,6 @@ function App() {
   // sets the active modal as the item modal
   // item object: { id, name, imageUrl }
   function handleCardClick(item) {
-    setModalData(item);
     openModal('item-modal');
     setSelectedItemId(item._id);
   }
@@ -55,7 +52,6 @@ function App() {
           openModal={openModal}
           closeModal={closeModal}
           activeModal={activeModal}
-          modalData={modalData}
           selectedItemId={selectedItemId}
           onAddItem={handleAddItemSubmit}
           onDeleteItem={handleDeleteItem}

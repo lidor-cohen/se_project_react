@@ -1,7 +1,21 @@
 // External
+import { useContext, useEffect } from 'react';
 import './ItemCard.css';
 
-function ItemCard({ id, name, imageUrl, weather, handleCardClick }) {
+// Contexts
+import { CurrentCardContext } from '../../../contexts/CurrentCardContext';
+
+function ItemCard({
+  id,
+  name,
+  imageUrl,
+  weather,
+  likes,
+  owner,
+  handleCardClick,
+}) {
+  const { setCurrentCard } = useContext(CurrentCardContext);
+
   return (
     <div
       className="item-card"
@@ -9,7 +23,8 @@ function ItemCard({ id, name, imageUrl, weather, handleCardClick }) {
         backgroundImage: `url(${new URL(imageUrl, import.meta.url).href})`,
       }}
       onClick={() => {
-        handleCardClick({ id, name, imageUrl, weather });
+        setCurrentCard({ id, name, imageUrl, weather, likes, owner });
+        handleCardClick();
       }}
     >
       <p className="item-card__name">{name}</p>
