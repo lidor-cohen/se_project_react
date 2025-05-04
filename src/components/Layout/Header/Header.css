@@ -31,10 +31,6 @@
   font-size: 20px;
 }
 
-.header__user-image {
-  width: 40px;
-}
-
 .header__nav-item {
   cursor: pointer;
 }

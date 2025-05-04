@@ -10,7 +10,6 @@ import { CurrentUserContext } from './CurrentUserContext.js';
 // Apis
 import authApi from '../utils/apis/authApi.js';
 import { getToken, setToken } from '../utils/token.js';
-import { isImageValid } from '../utils/validation.js';
 
 function AppContextProvider({
   children,
@@ -35,16 +34,14 @@ function AppContextProvider({
 
   // Set User State
   const fetchAndSetUser = (token) => {
-    return authApi.getUser({ token }).then((user) => {
-      return isImageValid(user.avatar).then((avatarUrl) => {
-        setCurrentUser({
-          isLoggedIn: true,
-          name: user.name,
-          email: user.email,
-          avatar: avatarUrl,
-        });
-      });
-    });
+    return authApi.getUser({ token }).then((user) =>
+      setCurrentUser({
+        isLoggedIn: true,
+        name: user.name,
+        email: user.email,
+        avatar: user.avatar,
+      })
+    );
   };
 
   // Combined functionality

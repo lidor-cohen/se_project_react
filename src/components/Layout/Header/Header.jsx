@@ -8,6 +8,7 @@ import ToggleSwitch from './ToggleSwitch/ToggleSwitch';
 
 // Contexts
 import { CurrentUserContext } from '../../../contexts/CurrentUserContext';
+import AvatarImage from '../../UI/AvatarImage/AvatarImage';
 
 function Header({ cityName, openModal }) {
   const { currentUser } = useContext(CurrentUserContext);
@@ -40,11 +41,7 @@ function Header({ cityName, openModal }) {
           <Link to="/profile">
             <li className="header__nav-item header__nav-item_type_account">
               {currentUser.name}
-              <img
-                className="header__user-image"
-                src={currentUser.avatar}
-                alt="user image"
-              />
+              <AvatarImage size={40} />
             </li>
           </Link>
         </ul>

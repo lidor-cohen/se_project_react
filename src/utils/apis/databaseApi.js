@@ -1,3 +1,5 @@
+import { getToken } from '../token';
+
 class DatabaseAPI {
   constructor() {
     this._baseUrl = 'http://localhost:3001';
@@ -8,12 +10,12 @@ class DatabaseAPI {
     return Promise.reject(`Error: ${res.statusText}`);
   }
 
-  call({ method, endpoint, headers = {}, body }) {
+  call({ method, endpoint, body }) {
     const options = {
       method,
       headers: {
         'content-type': 'application/json',
-        ...headers,
+        Authorization: `Bearer ${getToken()}`,
       },
     };
 
