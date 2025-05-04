@@ -4,6 +4,8 @@ import './ModalWithForm.css';
 // Components
 import closeButtonImage from '../../../assets/icons/close-button-gray.svg';
 import Modal from '../../Modal/Modal';
+import FormSubmit from '../../UI/FormElements/FormSubmit';
+import FormTitle from '../../UI/FormElements/FormTitle';
 
 function ModalWithForm({
   title,
@@ -21,7 +23,7 @@ function ModalWithForm({
       modalCloseButton={closeButtonImage}
       onClose={onClose}
     >
-      <h2 className="form-modal__header">{title}</h2>
+      <FormTitle title={title} />
       <form
         name={name}
         className={`form-modal__form form-modal__form_type_${name}`}
@@ -29,20 +31,12 @@ function ModalWithForm({
         noValidate
       >
         {children}
-        <div className="form-modal__buttons-container">
-          <button
-            disabled={isButtonDisabled}
-            className="button-primary form-modal__submit"
-            type="submit"
-          >
-            {buttonText}
-          </button>
-          {subButton && (
-            <a className="form-modal__sub-button" onClick={subButton.action}>
-              {subButton.text}
-            </a>
-          )}
-        </div>
+
+        <FormSubmit
+          text={buttonText}
+          isButtonDisabled={isButtonDisabled}
+          subButton={subButton}
+        />
       </form>
     </Modal>
   );

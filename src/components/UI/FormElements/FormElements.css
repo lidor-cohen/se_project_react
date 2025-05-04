@@ -1,0 +1,60 @@
+/* SubmitButton.jsx */
+
+.form-modal__buttons-container {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.form-modal__sub-button {
+  font-weight: 700;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+
+/* FormTitle.jsx */
+
+.form-modal__header {
+  font-size: 16px;
+  margin: 0;
+}
+
+/* FormInput.jsx */
+
+.form-modal__input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-modal__label {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.form-modal__input {
+  border: none;
+  border-bottom: 1px solid black;
+  padding: 0;
+  line-height: 20px;
+  padding-bottom: 4px;
+}
+
+.form-modal__input::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+  font-weight: 700;
+}
+
+.form-modal__input:focus {
+  outline: none;
+}
+
+.form__label-error {
+  color: #ff4d00;
+}
+
+.form__input-error {
+  color: #ff4d00;
+}
