@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import { CurrentClothingItemsContext } from '../../../../contexts/CurrentClothingItemsContext';
 import ItemCard from '../../../Cards/ItemCard/ItemCard';
 
-function ClothesSection({ handleCardClick, handleAddCard }) {
+function ClothesSection({ handleCardClick, openModal }) {
   const { currentClothingItems } = useContext(CurrentClothingItemsContext);
 
   return (
@@ -12,9 +12,12 @@ function ClothesSection({ handleCardClick, handleAddCard }) {
       <div className="clothes-section__header">
         <span className="clothes-section__title">Your Items:</span>
         <a
-          onClick={handleAddCard}
+          onClick={(e) => {
+            e.preventDefault();
+            openModal('add-garment');
+          }}
           className="clothes-section__add-new"
-          href="#"
+          href=""
         >
           + Add New
         </a>
@@ -28,7 +31,7 @@ function ClothesSection({ handleCardClick, handleAddCard }) {
               name={item.name}
               imageUrl={item.imageUrl}
               weather={item.weather}
-              handleCardClick={() => handleCardClick(item)}
+              handleCardClick={handleCardClick}
               likes={item.likes}
               owner={item.owner}
             />

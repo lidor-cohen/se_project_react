@@ -76,23 +76,21 @@ function AppContextProvider({
   }, []);
 
   return (
-    <CurrentUserContext.Provider
-      value={{ currentUser, handleSignIn, handleSignUp }}
-    >
-      <CurrentClothingItemsContext.Provider value={{ currentClothingItems }}>
-        <CurrentWeatherDataContext.Provider value={{ currentWeatherData }}>
-          <CurrentTemperatureUnitContext.Provider
-            value={{ currentTemperatureUnit, handleToggleSwitchChange }}
-          >
-            <CurrentCardContext.Provider
-              value={{ currentCard, setCurrentCard }}
+    <CurrentCardContext.Provider value={{ currentCard, setCurrentCard }}>
+      <CurrentUserContext.Provider
+        value={{ currentUser, handleSignIn, handleSignUp }}
+      >
+        <CurrentClothingItemsContext.Provider value={{ currentClothingItems }}>
+          <CurrentWeatherDataContext.Provider value={{ currentWeatherData }}>
+            <CurrentTemperatureUnitContext.Provider
+              value={{ currentTemperatureUnit, handleToggleSwitchChange }}
             >
               {children}
-            </CurrentCardContext.Provider>
-          </CurrentTemperatureUnitContext.Provider>
-        </CurrentWeatherDataContext.Provider>
-      </CurrentClothingItemsContext.Provider>
-    </CurrentUserContext.Provider>
+            </CurrentTemperatureUnitContext.Provider>
+          </CurrentWeatherDataContext.Provider>
+        </CurrentClothingItemsContext.Provider>
+      </CurrentUserContext.Provider>
+    </CurrentCardContext.Provider>
   );
 }
 

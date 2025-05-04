@@ -22,7 +22,6 @@ function ItemModal({ isOpen, onDelete, onClose }) {
   // item view instead of the delete modal view
   useEffect(() => {
     setDeleteConfimationActive(false);
-    console.log({ currentCard, currentUser });
   }, [isOpen]);
 
   return (
@@ -72,7 +71,10 @@ function ItemModal({ isOpen, onDelete, onClose }) {
                 irreversible.
               </p>
               <button
-                onClick={onDelete}
+                onClick={() => {
+                  onDelete({ id: currentCard.id });
+                  onClose();
+                }}
                 className="delete-modal__button delete-modal__delete-confirm"
               >
                 Yes, delete item

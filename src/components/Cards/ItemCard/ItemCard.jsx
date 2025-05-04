@@ -1,6 +1,6 @@
 // External
-import { useContext, useEffect } from 'react';
 import './ItemCard.css';
+import { useContext } from 'react';
 
 // Contexts
 import { CurrentCardContext } from '../../../contexts/CurrentCardContext';

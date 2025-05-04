@@ -66,10 +66,6 @@ function AddItemModal({ isOpen, onAddItem, closeModal }) {
     e.preventDefault();
     if (!formErrors.name && !formErrors.image) {
       onAddItem({
-        _id:
-          currentClothingItems.length > 0
-            ? currentClothingItems.at(-1)._id + 1
-            : 0,
         name: nameInput,
         weather: weatherTypeInput,
         imageUrl: imageUrlInput,

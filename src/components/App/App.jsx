@@ -23,21 +23,14 @@ function App() {
   const { currentWeatherData } = useWeather();
   const { currentClothingItems, handleDeleteItem, handleAddItemSubmit } =
     useClothingItems();
-  const {
-    activeModal,
-    selectedItemId,
-    openModal,
-    closeModal,
-    setSelectedItemId,
-  } = useModalState();
+  const { activeModal, openModal, closeModal } = useModalState();
 
   // Takes the card data, sets the relevant modal data,
   // also sents the currently selected item id and then
   // sets the active modal as the item modal
   // item object: { id, name, imageUrl }
-  function handleCardClick(item) {
+  function handleCardClick() {
     openModal('item-modal');
-    setSelectedItemId(item._id);
   }
 
   if (!currentWeatherData) return <div>loading..</div>;
@@ -52,7 +45,6 @@ function App() {
           openModal={openModal}
           closeModal={closeModal}
           activeModal={activeModal}
-          selectedItemId={selectedItemId}
           onAddItem={handleAddItemSubmit}
           onDeleteItem={handleDeleteItem}
         />
@@ -79,7 +71,10 @@ function App() {
               path="/profile"
               element={
                 <ProtectedRoute>
-                  <Profile handleCardClick={handleCardClick} />
+                  <Profile
+                    openModal={openModal}
+                    handleCardClick={handleCardClick}
+                  />
                 </ProtectedRoute>
               }
             />

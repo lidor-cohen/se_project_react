@@ -12,19 +12,21 @@ export function useClothingItems() {
         weather: item.weather,
       })
       .then((newItem) => {
-        setCurrentClothingItems([...currentClothingItems, item]);
+        setCurrentClothingItems([...currentClothingItems, newItem]);
         return newItem;
       });
   }
 
   // Calls the items api with the deleteItem function.
   // function takes an item id and returns a promise.
-  function handleDeleteItem(selectedItemId) {
-    databaseApi.deleteItem({ id: selectedItemId }).then(() => {
-      setCurrentClothingItems(
-        currentClothingItems.filter((item) => item._id !== selectedItemId)
+  function handleDeleteItem({ id }) {
+    return databaseApi
+      .deleteItem({ id })
+      .then(() =>
+        setCurrentClothingItems(
+          currentClothingItems.filter((item) => item._id !== id)
+        )
       );
-    });
   }
 
   useEffect(() => {

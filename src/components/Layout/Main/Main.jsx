@@ -41,7 +41,7 @@ function Main({ handleCardClick, currentWeatherData, currentClothingItems }) {
               name={item.name}
               imageUrl={item.imageUrl}
               weather={item.weather}
-              handleCardClick={() => handleCardClick(item)}
+              handleCardClick={handleCardClick}
               likes={item.likes}
               owner={item.owner}
             />
