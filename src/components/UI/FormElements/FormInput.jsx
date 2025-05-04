@@ -17,7 +17,8 @@ function FormInput({
   required,
 }) {
   const [error, setError] = useState('');
-  const _labelRef = labelRef || useRef();
+  const fallbackRef = useRef();
+  const _labelRef = labelRef ?? fallbackRef;
   const _inputRef = useRef();
 
   const handleChange = (evt) => {

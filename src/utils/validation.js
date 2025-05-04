@@ -1,5 +1,7 @@
 import validator from 'validator';
 
+import DEFAULT_AVATAR from '../assets/defaults/default-avatar.png';
+
 const isNameValid = (name) => {
   const namePattern = /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/;
   return namePattern.test(name) && name.length >= 2 && name.length <= 30;
@@ -18,4 +20,22 @@ const isPasswordValid = (password) => {
   return passwordPattern.test(password);
 };
 
-export { isNameValid, isEmailValid, isAvatarValid, isPasswordValid };
+const isImageValid = async (imageUrl) => {
+  const img = new Image();
+
+  const isValid = await new Promise((resolve) => {
+    img.onload = () => resolve(true);
+    img.onerror = () => resolve(false);
+    img.src = imageUrl;
+  });
+
+  return isValid ? imageUrl : DEFAULT_AVATAR;
+};
+
+export {
+  isNameValid,
+  isEmailValid,
+  isAvatarValid,
+  isPasswordValid,
+  isImageValid,
+};

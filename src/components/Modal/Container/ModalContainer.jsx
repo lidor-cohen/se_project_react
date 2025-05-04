@@ -1,10 +1,14 @@
+// External
+import { useContext } from 'react';
+
 // Components
 import ItemModal from '../ItemModal/ItemModal';
 import AddItemModal from '../ModalWithForm/AddItemModal/AddItemModal';
 import SignInModal from '../ModalWithForm/SignInModal/SignInModal';
 import SignUpModal from '../ModalWithForm/SignUpModal/SignUpModal';
 
-import authApi from '../../../utils/auth';
+// Contexts
+import { CurrentUserContext } from '../../../contexts/CurrentUserContext';
 
 function ModalContainer({
   activeModal,
@@ -14,26 +18,7 @@ function ModalContainer({
   onDeleteItem,
   openModal,
 }) {
-  // Sign in user
-  function handleSignIn({ email, password }) {
-    return authApi.login({ email, password }).then(() => {
-      closeModal();
-    });
-  }
-
-  // Sign up user
-  function handleSignUp({ email, password, name, avatar }) {
-    return authApi
-      .signup({ email, password, name, avatar })
-      .then(() => {
-        closeModal();
-        openModal('signin-modal');
-      })
-      .catch((error) => {
-        console.error('Signup error:', error);
-      });
-  }
-
+  const { handleSignIn, handleSignUp } = useContext(CurrentUserContext);
   return (
     <>
       <SignInModal
@@ -46,8 +31,8 @@ function ModalContainer({
       <SignUpModal
         isOpen={activeModal === 'signup-modal'}
         closeModal={closeModal}
-        signUpUser={handleSignUp}
         openModal={openModal}
+        handleSignUp={handleSignUp}
       />
 
       <AddItemModal

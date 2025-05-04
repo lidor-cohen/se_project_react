@@ -16,6 +16,7 @@ import { useModalState } from '../../hooks/useModalState.js';
 
 // Context Provider
 import AppContextProvider from '../../contexts/AppContextProvider.jsx';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute.jsx';
 
 function App() {
   // Hooks
@@ -56,7 +57,7 @@ function App() {
           activeModal={activeModal}
           modalData={modalData}
           selectedItemId={selectedItemId}
-          onAddItem={() => handleAddItemSubmit(selectedItemId)}
+          onAddItem={handleAddItemSubmit}
           onDeleteItem={handleDeleteItem}
         />
 
@@ -80,7 +81,11 @@ function App() {
 
             <Route
               path="/profile"
-              element={<Profile handleCardClick={handleCardClick} />}
+              element={
+                <ProtectedRoute>
+                  <Profile handleCardClick={handleCardClick} />
+                </ProtectedRoute>
+              }
             />
           </Routes>
 

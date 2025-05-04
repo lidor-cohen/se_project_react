@@ -28,7 +28,7 @@ function Header({ cityName, openModal }) {
         </h2>
       </div>
 
-      {currentUser ? (
+      {currentUser.isLoggedIn ? (
         <ul className="header__right-section">
           <ToggleSwitch />
           <li
@@ -39,10 +39,10 @@ function Header({ cityName, openModal }) {
           </li>
           <Link to="/profile">
             <li className="header__nav-item header__nav-item_type_account">
-              Terrence Tegegne
+              {currentUser.name}
               <img
                 className="header__user-image"
-                src="https://i.ibb.co/9HnNNzsk/2e259a8c8558ae5104a4ec0d6ae39021.png"
+                src={currentUser.avatar}
                 alt="user image"
               />
             </li>

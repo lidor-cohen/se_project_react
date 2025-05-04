@@ -1,6 +1,6 @@
 import './SignUpModal.css';
 import ModalWithForm from '../ModalWithForm';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   isNameValid,
   isEmailValid,
@@ -8,8 +8,9 @@ import {
   isPasswordValid,
 } from '../../../../utils/validation';
 import FormInput from '../../../UI/FormElements/FormInput';
+import authApi from '../../../../utils/apis/authApi';
 
-function SignUpModal({ isOpen, signUpUser, closeModal, openModal }) {
+function SignUpModal({ isOpen, closeModal, openModal, handleSignUp }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [avatar, setAvatar] = useState('');
@@ -145,23 +146,21 @@ function SignUpModal({ isOpen, signUpUser, closeModal, openModal }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    signUpUser({
+
+    handleSignUp({
       email,
       password,
       name,
       avatar,
     })
-      .then(() => {
-        closeModal();
-        openModal('signin-modal');
-        resetValues();
-      })
+      .then(closeModal)
       .catch(console.error);
   };
 
   useEffect(() => {
     if (Object.values(validity).every((item) => item === true))
       setButtonDisabled(false);
+    else setButtonDisabled(true);
   }, [validity]);
 
   return (

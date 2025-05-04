@@ -1,15 +1,18 @@
+import { useContext } from 'react';
 import './Sidebar.css';
+import { CurrentUserContext } from '../../../../contexts/CurrentUserContext';
 
 function Sidebar() {
+  const { currentUser } = useContext(CurrentUserContext);
   return (
     <div className="sidebar">
       <div className="sidebar__profile-info">
         <img
           className="sidebar__profile-image"
-          src="https://i.ibb.co/9HnNNzsk/2e259a8c8558ae5104a4ec0d6ae39021.png"
+          src={currentUser.avatar}
           alt="profile-image"
         />
-        <p className="sidebar__profile-name">Terrence Tegegne</p>
+        <p className="sidebar__profile-name">{currentUser.name}</p>
       </div>
     </div>
   );

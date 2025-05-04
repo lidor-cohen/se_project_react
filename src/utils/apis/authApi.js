@@ -8,11 +8,12 @@ class AuthAPI {
     return Promise.reject(`Error: ${res.statusText}`);
   }
 
-  call({ method, endpoint, body }) {
+  call({ method, endpoint, headers = {}, body }) {
     const options = {
       method,
       headers: {
         'content-type': 'application/json',
+        ...headers,
       },
     };
 
@@ -43,6 +44,16 @@ class AuthAPI {
         password,
         name,
         avatar,
+      },
+    });
+  }
+
+  getUser({ token }) {
+    return this.call({
+      method: 'GET',
+      endpoint: '/users/me',
+      headers: {
+        Authorization: `Bearer ${token}`,
       },
     });
   }

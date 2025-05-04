@@ -6,9 +6,8 @@ import FormInput from '../../../UI/FormElements/FormInput';
 function SignInModal({ isOpen, signInUser, openModal, closeModal }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  const passwordRef = useRef();
   const [passwordLabel, setPasswordLabel] = useState('Password');
+  const passwordRef = useRef();
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -20,11 +19,12 @@ function SignInModal({ isOpen, signInUser, openModal, closeModal }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     signInUser({
       email,
       password,
     })
-      .then((res) => console.log('OK: RES'))
+      .then(closeModal)
       .catch(() => {
         passwordRef.current.classList.add('form__input-error');
         setPasswordLabel('Incorrect Password');
