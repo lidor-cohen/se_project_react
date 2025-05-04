@@ -6,7 +6,7 @@ import ClothesSection from './ClothesSection/ClothesSection';
 function Profile({ handleCardClick, openModal }) {
   return (
     <div className="profile">
-      <Sidebar />
+      <Sidebar openModal={openModal} />
       <ClothesSection handleCardClick={handleCardClick} openModal={openModal} />
     </div>
   );

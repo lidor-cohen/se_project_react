@@ -153,7 +153,10 @@ function SignUpModal({ isOpen, closeModal, openModal, handleSignUp }) {
       name,
       avatar,
     })
-      .then(closeModal)
+      .then(() => {
+        closeModal();
+        resetValues();
+      })
       .catch(console.error);
   };
 

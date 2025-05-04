@@ -6,6 +6,7 @@ import ItemModal from '../ItemModal/ItemModal';
 import AddItemModal from '../ModalWithForm/AddItemModal/AddItemModal';
 import SignInModal from '../ModalWithForm/SignInModal/SignInModal';
 import SignUpModal from '../ModalWithForm/SignUpModal/SignUpModal';
+import ChangeProfileInfoModal from '../ModalWithForm/ChangeProfileInfoModal/ChangeProfileInfoModal';
 
 // Contexts
 import { CurrentUserContext } from '../../../contexts/CurrentUserContext';
@@ -48,6 +49,11 @@ function ModalContainer({
         weatherCondition={modalData?.weather}
         onClose={closeModal}
         onDelete={onDeleteItem}
+      />
+
+      <ChangeProfileInfoModal
+        isOpen={activeModal === 'change-profile-info'}
+        closeModal={closeModal}
       />
     </>
   );

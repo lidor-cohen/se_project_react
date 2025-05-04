@@ -1,3 +1,5 @@
+import { getToken } from '../token';
+
 class AuthAPI {
   constructor() {
     this._baseUrl = 'http://localhost:3001';
@@ -48,13 +50,28 @@ class AuthAPI {
     });
   }
 
-  getUser({ token }) {
+  getUser() {
     return this.call({
       method: 'GET',
       endpoint: '/users/me',
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${getToken()}`,
       },
+    });
+  }
+
+  updateUser({ name, avatar }) {
+    const options = {};
+    if (name) options.name = name;
+    if (avatar) options.avatar = avatar;
+
+    return this.call({
+      method: 'PATCH',
+      endpoint: '/users/me',
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+      },
+      body: options,
     });
   }
 }

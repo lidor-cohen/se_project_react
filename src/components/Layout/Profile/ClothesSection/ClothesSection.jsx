@@ -1,11 +1,14 @@
 import './ClothesSection.css';
 import { useContext } from 'react';
 
-import { CurrentClothingItemsContext } from '../../../../contexts/CurrentClothingItemsContext';
 import ItemCard from '../../../Cards/ItemCard/ItemCard';
+
+import { CurrentClothingItemsContext } from '../../../../contexts/CurrentClothingItemsContext';
+import { CurrentUserContext } from '../../../../contexts/CurrentUserContext';
 
 function ClothesSection({ handleCardClick, openModal }) {
   const { currentClothingItems } = useContext(CurrentClothingItemsContext);
+  const { currentUser } = useContext(CurrentUserContext);
 
   return (
     <div className="clothes-section">
@@ -24,6 +27,7 @@ function ClothesSection({ handleCardClick, openModal }) {
       </div>
       <div className="clothes-section__gallery">
         {currentClothingItems
+          .filter((item) => item.owner === currentUser.id)
           .map((item) => (
             <ItemCard
               key={item._id}

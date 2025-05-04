@@ -10,7 +10,7 @@ const isEmailValid = (email) => {
 };
 
 const isAvatarValid = (avatar) => {
-  return validator.isURL(avatar) && /\.(png|jpe?g)$/i.test(avatar);
+  return validator.isURL(avatar);
 };
 
 const isPasswordValid = (password) => {

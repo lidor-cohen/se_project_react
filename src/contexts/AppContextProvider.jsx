@@ -36,8 +36,8 @@ function AppContextProvider({
   };
 
   // Set User State
-  const fetchAndSetUser = (token) => {
-    return authApi.getUser({ token }).then((user) =>
+  const fetchAndSetUser = () => {
+    return authApi.getUser().then((user) =>
       setCurrentUser({
         isLoggedIn: true,
         _id: user._id,
@@ -62,6 +62,15 @@ function AppContextProvider({
       .then(() => handleSignIn({ email, password }));
   };
 
+  // Update User Info
+  const updateUserInfo = ({ name, avatar }) => {
+    return setCurrentUser({
+      ...currentUser,
+      name,
+      avatar,
+    });
+  };
+
   // Toggle switch global context
   function handleToggleSwitchChange() {
     setCurrentTemperatureUnit((prev) =>
@@ -72,13 +81,13 @@ function AppContextProvider({
   // Check for jwt
   useEffect(() => {
     const token = getToken();
-    if (token) fetchAndSetUser(token);
+    if (token) fetchAndSetUser();
   }, []);
 
   return (
     <CurrentCardContext.Provider value={{ currentCard, setCurrentCard }}>
       <CurrentUserContext.Provider
-        value={{ currentUser, handleSignIn, handleSignUp }}
+        value={{ currentUser, updateUserInfo, handleSignIn, handleSignUp }}
       >
         <CurrentClothingItemsContext.Provider value={{ currentClothingItems }}>
           <CurrentWeatherDataContext.Provider value={{ currentWeatherData }}>
