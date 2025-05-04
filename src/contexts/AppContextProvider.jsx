@@ -10,7 +10,7 @@ import { CurrentCardContext } from './CurrentCardContext.js';
 
 // Apis
 import authApi from '../utils/apis/authApi.js';
-import { getToken, setToken } from '../utils/token.js';
+import { getToken, removeToken, setToken } from '../utils/token.js';
 
 function AppContextProvider({
   children,
@@ -71,6 +71,18 @@ function AppContextProvider({
     });
   };
 
+  // Log out
+  const signOut = () => {
+    removeToken();
+    setCurrentUser({
+      isLoggedIn: false,
+      _id: '',
+      name: '',
+      email: '',
+      avatar: '',
+    });
+  };
+
   // Toggle switch global context
   function handleToggleSwitchChange() {
     setCurrentTemperatureUnit((prev) =>
@@ -87,7 +99,13 @@ function AppContextProvider({
   return (
     <CurrentCardContext.Provider value={{ currentCard, setCurrentCard }}>
       <CurrentUserContext.Provider
-        value={{ currentUser, updateUserInfo, handleSignIn, handleSignUp }}
+        value={{
+          currentUser,
+          signOut,
+          updateUserInfo,
+          handleSignIn,
+          handleSignUp,
+        }}
       >
         <CurrentClothingItemsContext.Provider value={{ currentClothingItems }}>
           <CurrentWeatherDataContext.Provider value={{ currentWeatherData }}>

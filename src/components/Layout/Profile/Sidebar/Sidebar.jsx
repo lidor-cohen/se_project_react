@@ -1,10 +1,15 @@
-import { useContext } from 'react';
+// External
 import './Sidebar.css';
-import { CurrentUserContext } from '../../../../contexts/CurrentUserContext';
+import { useContext } from 'react';
+
+// Components
 import AvatarImage from '../../../UI/AvatarImage/AvatarImage';
 
+// Contexts
+import { CurrentUserContext } from '../../../../contexts/CurrentUserContext';
+
 function Sidebar({ openModal }) {
-  const { currentUser } = useContext(CurrentUserContext);
+  const { currentUser, signOut } = useContext(CurrentUserContext);
   return (
     <div className="sidebar">
       <div className="sidebar__profile-info">
@@ -26,6 +31,7 @@ function Sidebar({ openModal }) {
           href=""
           onClick={(e) => {
             e.preventDefault();
+            signOut();
           }}
         >
           Sign out
