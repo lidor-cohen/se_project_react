@@ -11,9 +11,9 @@ export function useClothingItems() {
         imageUrl: item.imageUrl,
         weather: item.weather,
       })
-      .then((res) => {
+      .then((newItem) => {
         setCurrentClothingItems([...currentClothingItems, item]);
-        closeModal();
+        return newItem;
       })
       .catch(console.error);
   }
@@ -21,15 +21,11 @@ export function useClothingItems() {
   // Calls the items api with the deleteItem function.
   // function takes an item id and returns a promise.
   function handleDeleteItem(selectedItemId) {
-    databaseApi
-      .deleteItem({ id: selectedItemId })
-      .then((res) => {
-        closeModal();
-        setCurrentClothingItems(
-          currentClothingItems.filter((item) => item._id !== selectedItemId)
-        );
-      })
-      .catch((err) => console.log(err));
+    databaseApi.deleteItem({ id: selectedItemId }).then(() => {
+      setCurrentClothingItems(
+        currentClothingItems.filter((item) => item._id !== selectedItemId)
+      );
+    });
   }
 
   useEffect(() => {

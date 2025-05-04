@@ -20,7 +20,7 @@ function Main({ handleCardClick, currentWeatherData, currentClothingItems }) {
         (item) => item.weather === currentWeatherData.feeling
       )
     );
-  }, [currentClothingItems]);
+  }, [currentClothingItems, currentWeatherData]);
 
   return (
     <main className="main">

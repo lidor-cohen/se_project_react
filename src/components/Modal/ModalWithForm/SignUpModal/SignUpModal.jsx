@@ -1,93 +1,168 @@
 import './SignUpModal.css';
 import ModalWithForm from '../ModalWithForm';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   isNameValid,
   isEmailValid,
   isAvatarValid,
   isPasswordValid,
 } from '../../../../utils/validation';
+import FormInput from '../../../UI/FormElements/FormInput';
 
-function SignUpModal({ isOpen, signUpUser, closeModal, setActiveModal }) {
-  const [userData, setUserData] = useState({
-    name: '',
-    email: '',
-    avatar: '',
-    password: '',
-  });
+function SignUpModal({ isOpen, signUpUser, closeModal, openModal }) {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [avatar, setAvatar] = useState('');
+  const [password, setPassword] = useState('');
 
   const [nameLabel, setNameLabel] = useState('Name *');
   const [emailLabel, setEmailLabel] = useState('Email *');
   const [avatarLabel, setAvatarLabel] = useState('Avatar URL *');
   const [passwordLabel, setPasswordLabel] = useState('Password *');
 
-  const nameRef = useRef();
-  const emailRef = useRef();
-  const avatarRef = useRef();
-  const passwordRef = useRef();
-
+  const [validity, setValidity] = useState({
+    name: false,
+    email: false,
+    avatar: false,
+    password: false,
+  });
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
-  const handleChange = (e) => {
-    userData[e.target.name] = e.target.value;
-    setUserData({
-      ...userData,
-      [e.target.name]: e.target.value,
-    });
+  const handleNameChange = (evt) => {
+    const newName = evt.target.value;
+    setName(newName);
 
-    const validName = isNameValid(userData.name);
-    const validEmail = isEmailValid(userData.email);
-    const validAvatar = isAvatarValid(userData.avatar);
-    const validPassword = isPasswordValid(userData.password);
+    validateName(newName)
+      ? setValidity({
+          ...validity,
+          name: true,
+        })
+      : setValidity({
+          ...validity,
+          name: false,
+        });
+  };
+  const handleEmailChange = (evt) => {
+    const newEmail = evt.target.value;
+    setEmail(newEmail);
 
-    if (!validName && e.target.name === 'name') {
+    validateEmail(newEmail)
+      ? setValidity({
+          ...validity,
+          email: true,
+        })
+      : setValidity({
+          ...validity,
+          email: false,
+        });
+  };
+  const handleAvatarChange = (evt) => {
+    const newAvatar = evt.target.value;
+    setAvatar(newAvatar);
+
+    validateAvatar(newAvatar)
+      ? setValidity({
+          ...validity,
+          avatar: true,
+        })
+      : setValidity({
+          ...validity,
+          avatar: false,
+        });
+  };
+  const handlePasswordChange = (evt) => {
+    const newPassword = evt.target.value;
+    setPassword(newPassword);
+
+    validatePassword(newPassword)
+      ? setValidity({
+          ...validity,
+          password: true,
+        })
+      : setValidity({
+          ...validity,
+          password: false,
+        });
+  };
+
+  const validateName = (value) => {
+    const isValid = isNameValid(value);
+
+    if (!isValid) {
       setNameLabel('Name (must be 2-30 characters) *');
       setButtonDisabled(true);
-    } else if (validName && e.target.name === 'name') {
+    } else if (isValid) {
       setNameLabel('Name *');
     }
 
-    if (!validEmail && e.target.name === 'email') {
+    return isValid;
+  };
+  const validateEmail = (value) => {
+    const isValid = isEmailValid(value);
+
+    if (!isValid) {
       setEmailLabel('Email (must be a valid email address) *');
       setButtonDisabled(true);
-    } else if (validEmail && e.target.name === 'email') {
+    } else if (isValid) {
       setEmailLabel('Email *');
     }
 
-    if (!validAvatar && e.target.name === 'avatar') {
+    return isValid;
+  };
+  const validateAvatar = (value) => {
+    const isValid = isAvatarValid(value);
+
+    if (!isValid) {
       setAvatarLabel('Avatar URL (must be a valid image URL) *');
       setButtonDisabled(true);
-    } else if (validAvatar && e.target.name === 'avatar') {
+    } else if (isValid) {
       setAvatarLabel('Avatar URL *');
     }
 
-    if (!validPassword && e.target.name === 'password') {
+    return isValid;
+  };
+  const validatePassword = (value) => {
+    const isValid = isPasswordValid(value);
+
+    if (!isValid) {
       setPasswordLabel(
         'Password (must be between 8-16 characters with at least one uppercase letter and one lowercase letter)'
       );
       setButtonDisabled(true);
-    } else if (validPassword && e.target.name === 'password') {
+    } else if (isValid) {
       setPasswordLabel('Password *');
     }
 
-    if (validName && validEmail && validAvatar && validPassword)
-      setButtonDisabled(false);
+    return isValid;
+  };
+
+  const resetValues = () => {
+    setName('');
+    setAvatar('');
+    setPassword('');
+    setEmail('');
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     signUpUser({
-      email: userData.email,
-      password: userData.password,
-      name: userData.name,
-      avatar: userData.avatar,
+      email,
+      password,
+      name,
+      avatar,
     })
       .then(() => {
         closeModal();
-        setActiveModal('signin-modal');
+        openModal('signin-modal');
+        resetValues();
       })
       .catch(console.error);
   };
+
+  useEffect(() => {
+    if (Object.values(validity).every((item) => item === true))
+      setButtonDisabled(false);
+  }, [validity]);
 
   return (
     isOpen && (
@@ -98,79 +173,60 @@ function SignUpModal({ isOpen, signUpUser, closeModal, setActiveModal }) {
         subButton={{
           text: 'or Login',
           action: () => {
-            setActiveModal('signin-modal');
+            openModal('signin-modal');
           },
         }}
-        modalClass={'modal_type_sign-up'}
         isButtonDisabled={buttonDisabled}
         onSubmit={handleSubmit}
         onClose={closeModal}
       >
-        <div ref={emailRef} className="form-modal__input-container">
-          <label htmlFor="userEmail" className="form-modal__label">
-            {emailLabel}
-          </label>
-          <input
-            required
-            name="email"
-            minLength={2}
-            maxLength={20}
-            id="userEmail"
-            placeholder="Email"
-            type="email"
-            className="form-modal__input form-modal__input_type_text"
-            value={userData.email}
-            onChange={handleChange}
-          />
-        </div>
+        <FormInput
+          id="userEmail"
+          label={emailLabel}
+          placeholder="Email"
+          type="email"
+          value={email}
+          minLength={6}
+          maxLength={30}
+          onChange={handleEmailChange}
+          required={true}
+          checkErrors={false}
+        />
 
-        <div ref={passwordRef} className="form-modal__input-container">
-          <label htmlFor="userPassword" className="form-modal__label">
-            {passwordLabel}
-          </label>
-          <input
-            required
-            name="password"
-            id="userPassword"
-            placeholder="Password"
-            type="password"
-            className="form-modal__input form-modal__input_type_text"
-            value={userData.password}
-            onChange={handleChange}
-          />
-        </div>
+        <FormInput
+          id="userPassword"
+          label={passwordLabel}
+          placeholder="Password"
+          type="password"
+          value={password}
+          onChange={handlePasswordChange}
+          required={true}
+          checkErrors={false}
+        />
 
-        <div ref={nameRef} className="form-modal__input-container">
-          <label htmlFor="userName" className="form-modal__label">
-            {nameLabel}
-          </label>
-          <input
-            required
-            name="name"
-            id="userName"
-            placeholder="Name"
-            type="text"
-            className="form-modal__input form-modal__input_type_text"
-            value={userData.name}
-            onChange={handleChange}
-          />
-        </div>
+        <FormInput
+          id="userName"
+          label={nameLabel}
+          placeholder="Name"
+          type="text"
+          value={name}
+          onChange={handleNameChange}
+          minLength={2}
+          maxLength={20}
+          required={true}
+          checkErrors={false}
+        />
 
-        <div ref={avatarRef} className="form-modal__input-container">
-          <label htmlFor="userAvatar" className="form-modal__label">
-            {avatarLabel}
-          </label>
-          <input
-            required
-            name="avatar"
-            id="userAvatar"
-            placeholder="Avatar URL"
-            type="url"
-            className="form-modal__input form-modal__input_type_text"
-            value={userData.avatar}
-            onChange={handleChange}
-          />
-        </div>
+        <FormInput
+          id="userAvatar"
+          label={avatarLabel}
+          placeholder="Avatar URL"
+          type="url"
+          value={avatar}
+          onChange={handleAvatarChange}
+          required={true}
+          checkErrors={false}
+        />
       </ModalWithForm>
     )
   );

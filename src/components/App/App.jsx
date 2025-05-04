@@ -51,13 +51,13 @@ function App() {
         currentWeatherData={currentWeatherData}
       >
         <ModalContainer
+          openModal={openModal}
+          closeModal={closeModal}
           activeModal={activeModal}
           modalData={modalData}
           selectedItemId={selectedItemId}
-          closeModal={closeModal}
-          onAddItem={handleAddItemSubmit}
+          onAddItem={() => handleAddItemSubmit(selectedItemId)}
           onDeleteItem={handleDeleteItem}
-          openModal={openModal}
         />
 
         <div className="page__content">

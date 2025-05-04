@@ -16,14 +16,9 @@ function ModalContainer({
 }) {
   // Sign in user
   function handleSignIn({ email, password }) {
-    return authApi
-      .login({ email, password })
-      .then(() => {
-        closeModal();
-      })
-      .catch((error) => {
-        console.error('Login error:', error);
-      });
+    return authApi.login({ email, password }).then(() => {
+      closeModal();
+    });
   }
 
   // Sign up user
@@ -45,14 +40,14 @@ function ModalContainer({
         isOpen={activeModal === 'signin-modal'}
         closeModal={closeModal}
         signInUser={handleSignIn}
-        setActiveModal={openModal}
+        openModal={openModal}
       />
 
       <SignUpModal
         isOpen={activeModal === 'signup-modal'}
         closeModal={closeModal}
         signUpUser={handleSignUp}
-        setActiveModal={openModal}
+        openModal={openModal}
       />
 
       <AddItemModal

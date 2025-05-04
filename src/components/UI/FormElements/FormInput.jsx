@@ -6,39 +6,47 @@ function FormInput({
   name,
   type,
   label,
+  labelRef,
   value,
+  checkErrors = true,
   minLength,
   maxLength,
   placeholder,
   onChange,
+  validator,
   required,
 }) {
   const [error, setError] = useState('');
-  const labelRef = useRef();
-  const inputRef = useRef();
+  const _labelRef = labelRef || useRef();
+  const _inputRef = useRef();
 
   const handleChange = (evt) => {
-    const isValid = validationFn
-      ? validationFn(evt.target.value)
+    if (!checkErrors) {
+      onChange(evt);
+      return;
+    }
+
+    const isValid = validator
+      ? validator(evt.target.value)
       : evt.target.validity.valid;
 
     if (!isValid) {
-      const message = errorMessage || evt.target.validationMessage;
+      const message = evt.target.validationMessage;
       setError(message);
-      labelRef.current.classList.add('form__label-error');
-      inputRef.current.classList.add('form__input-error');
+      _labelRef.current.classList.add('form__label-error');
+      _inputRef.current.classList.add('form__input-error');
     } else {
       setError('');
-      labelRef.current.classList.remove('form__label-error');
-      inputRef.current.classList.remove('form__input-error');
+      _labelRef.current.classList.remove('form__label-error');
+      _inputRef.current.classList.remove('form__input-error');
     }
 
     onChange(evt);
   };
   return (
     <div className="form-modal__input-container">
-      <label ref={labelRef} htmlFor={id} className="form-modal__label">
-        {label} ({error || ''})
+      <label ref={_labelRef} htmlFor={id} className="form-modal__label">
+        {label} {error ? `(${error})` : ''}
       </label>
       <input
         className="form-modal__input form-modal__input_type_text"
@@ -51,7 +59,7 @@ function FormInput({
         {...(minLength !== undefined && { minLength })}
         {...(maxLength !== undefined && { maxLength })}
         onChange={handleChange}
-        ref={inputRef}
+        ref={_inputRef}
       />
     </div>
   );

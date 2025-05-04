@@ -11,7 +11,7 @@ function FormRadioGroup({ name, label, options, selectedValue, onChange }) {
 
       {options.map((option) => {
         return (
-          <div className="form-modal__radio-container">
+          <div className="form-modal__radio-container" key={`${option.id}`}>
             <input
               className="form-modal__input_type_radio"
               type="radio"

@@ -1,6 +1,6 @@
 // External
 import './AddItemModal.css';
-import { useEffect, useState, useContext, useRef } from 'react';
+import { useEffect, useState, useContext } from 'react';
 
 // Components
 import ModalWithForm from '../ModalWithForm';

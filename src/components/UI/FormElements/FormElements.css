@@ -58,3 +58,19 @@
 .form__input-error {
   color: #ff4d00;
 }
+
+/* FormRadioGroup.jsx */
+
+.form-modal__radio-container {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.form-modal__label-radio {
+  font-weight: 700;
+}
+
+.form-modal__input_type_radio {
+  accent-color: black;
+}

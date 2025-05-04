@@ -1,34 +1,32 @@
 import './SignInModal.css';
 import ModalWithForm from '../ModalWithForm';
 import { useRef, useState } from 'react';
+import FormInput from '../../../UI/FormElements/FormInput';
 
-function SignInModal({ isOpen, signInUser, closeModal, setActiveModal }) {
-  const [userData, setUserData] = useState({
-    email: '',
-    password: '',
-  });
-  const [passwordLabel, setPasswordLabel] = useState('Password');
+function SignInModal({ isOpen, signInUser, openModal, closeModal }) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const passwordRef = useRef();
+  const [passwordLabel, setPasswordLabel] = useState('Password');
 
-  const handleChange = (e) => {
-    setUserData({
-      ...userData,
-      [e.target.name]: e.target.value,
-    });
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     signInUser({
-      email: userData.email,
-      password: userData.password,
+      email,
+      password,
     })
-      .then(console.log)
+      .then((res) => console.log('OK: RES'))
       .catch(() => {
-        passwordRef.current.classList.add(
-          'form-modal__input-container-incorrect'
-        );
+        passwordRef.current.classList.add('form__input-error');
         setPasswordLabel('Incorrect Password');
       });
   };
@@ -42,46 +40,36 @@ function SignInModal({ isOpen, signInUser, closeModal, setActiveModal }) {
         subButton={{
           text: 'or Sign Up',
           action: () => {
-            setActiveModal('signup-modal');
+            openModal('signup-modal');
           },
         }}
-        modalClass={'modal_type_sign-in'}
         onSubmit={handleSubmit}
         onClose={closeModal}
       >
-        <div className="form-modal__input-container">
-          <label htmlFor="userEmail" className="form-modal__label">
-            Email
-          </label>
-          <input
-            required
-            name="email"
-            minLength={2}
-            maxLength={20}
-            id="userEmail"
-            placeholder="Email"
-            type="email"
-            className="form-modal__input form-modal__input_type_text"
-            value={userData.email}
-            onChange={handleChange}
-          />
-        </div>
+        <FormInput
+          id="userEmail"
+          name="email"
+          label="Email"
+          type="email"
+          minLength={2}
+          maxLength={20}
+          value={email}
+          onChange={handleEmailChange}
+          required={true}
+          checkErrors={false}
+        />
 
-        <div className="form-modal__input-container" ref={passwordRef}>
-          <label htmlFor="userPassword" className="form-modal__label">
-            {passwordLabel}
-          </label>
-          <input
-            required
-            name="password"
-            id="userPassword"
-            placeholder="Password"
-            type="password"
-            className="form-modal__input form-modal__input_type_text"
-            value={userData.password}
-            onChange={handleChange}
-          />
-        </div>
+        <FormInput
+          id="userPassword"
+          name="password"
+          label={passwordLabel}
+          labelRef={passwordRef}
+          placeholder="Password"
+          type="password"
+          value={password}
+          onChange={handlePasswordChange}
+          required={true}
+        />
       </ModalWithForm>
     )
   );
