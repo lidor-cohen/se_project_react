@@ -35,5 +35,10 @@ export function useClothingItems() {
     });
   }, []);
 
-  return { currentClothingItems, handleDeleteItem, handleAddItemSubmit };
+  return {
+    currentClothingItems,
+    setCurrentClothingItems,
+    handleDeleteItem,
+    handleAddItemSubmit,
+  };
 }

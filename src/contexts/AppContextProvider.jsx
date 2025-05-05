@@ -11,11 +11,13 @@ import { CurrentCardContext } from './CurrentCardContext.js';
 // Apis
 import authApi from '../utils/apis/authApi.js';
 import { getToken, removeToken, setToken } from '../utils/token.js';
+import databaseApi from '../utils/apis/databaseApi.js';
 
 function AppContextProvider({
   children,
   currentWeatherData,
   currentClothingItems,
+  setCurrentClothingItems,
 }) {
   const [currentCard, setCurrentCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState('F');
@@ -90,6 +92,26 @@ function AppContextProvider({
     );
   }
 
+  const handleCardLike = ({ id, isLiked }) => {
+    !isLiked
+      ? databaseApi
+          .likeItem({ id })
+          .then((updatedCard) => {
+            setCurrentClothingItems((cards) =>
+              cards.map((item) => (item._id === id ? updatedCard.item : item))
+            );
+          })
+          .catch((err) => console.log(err))
+      : databaseApi
+          .dislikeItem({ id })
+          .then((updatedCard) => {
+            setCurrentClothingItems((cards) =>
+              cards.map((item) => (item._id === id ? updatedCard.item : item))
+            );
+          })
+          .catch((err) => console.log(err));
+  };
+
   // Check for jwt
   useEffect(() => {
     const token = getToken();
@@ -107,7 +129,9 @@ function AppContextProvider({
           handleSignUp,
         }}
       >
-        <CurrentClothingItemsContext.Provider value={{ currentClothingItems }}>
+        <CurrentClothingItemsContext.Provider
+          value={{ currentClothingItems, handleCardLike }}
+        >
           <CurrentWeatherDataContext.Provider value={{ currentWeatherData }}>
             <CurrentTemperatureUnitContext.Provider
               value={{ currentTemperatureUnit, handleToggleSwitchChange }}

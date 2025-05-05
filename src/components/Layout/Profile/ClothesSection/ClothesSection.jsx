@@ -1,5 +1,5 @@
 import './ClothesSection.css';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 
 import ItemCard from '../../../Cards/ItemCard/ItemCard';
 
@@ -27,7 +27,7 @@ function ClothesSection({ handleCardClick, openModal }) {
       </div>
       <div className="clothes-section__gallery">
         {currentClothingItems
-          .filter((item) => item.owner === currentUser.id)
+          .filter((item) => item.owner === currentUser._id)
           .map((item) => (
             <ItemCard
               key={item._id}

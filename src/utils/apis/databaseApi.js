@@ -44,6 +44,20 @@ class DatabaseAPI {
       endpoint: `/items/${id}`,
     });
   }
+
+  likeItem({ id }) {
+    return this.call({
+      method: 'PUT',
+      endpoint: `/items/${id}/likes`,
+    });
+  }
+
+  dislikeItem({ id }) {
+    return this.call({
+      method: 'DELETE',
+      endpoint: `/items/${id}/likes`,
+    });
+  }
 }
 
 const databaseApi = new DatabaseAPI();

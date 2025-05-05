@@ -17,12 +17,17 @@ import { useModalState } from '../../hooks/useModalState.js';
 // Context Provider
 import AppContextProvider from '../../contexts/AppContextProvider.jsx';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute.jsx';
+import { useEffect } from 'react';
 
 function App() {
   // Hooks
   const { currentWeatherData } = useWeather();
-  const { currentClothingItems, handleDeleteItem, handleAddItemSubmit } =
-    useClothingItems();
+  const {
+    currentClothingItems,
+    setCurrentClothingItems,
+    handleDeleteItem,
+    handleAddItemSubmit,
+  } = useClothingItems();
   const { activeModal, openModal, closeModal } = useModalState();
 
   // Takes the card data, sets the relevant modal data,
@@ -38,6 +43,7 @@ function App() {
   return (
     <div className="page">
       <AppContextProvider
+        setCurrentClothingItems={setCurrentClothingItems}
         currentClothingItems={currentClothingItems}
         currentWeatherData={currentWeatherData}
       >
