@@ -17,6 +17,12 @@ function SignInModal({ isOpen, signInUser, openModal, closeModal }) {
     setPassword(e.target.value);
   };
 
+  const resetFields = () => {
+    setEmail('');
+    setPassword('');
+    setPasswordLabel('Password');
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -24,7 +30,10 @@ function SignInModal({ isOpen, signInUser, openModal, closeModal }) {
       email,
       password,
     })
-      .then(closeModal)
+      .then(() => {
+        closeModal();
+        resetFields();
+      })
       .catch(() => {
         passwordRef.current.classList.add('form__input-error');
         setPasswordLabel('Incorrect Password');

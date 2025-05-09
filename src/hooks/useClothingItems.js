@@ -14,7 +14,8 @@ export function useClothingItems() {
       .then((newItem) => {
         setCurrentClothingItems([...currentClothingItems, newItem]);
         return newItem;
-      });
+      })
+      .catch(console.error);
   }
 
   // Calls the items api with the deleteItem function.
@@ -26,13 +27,17 @@ export function useClothingItems() {
         setCurrentClothingItems(
           currentClothingItems.filter((item) => item._id !== id)
         )
-      );
+      )
+      .catch(console.error);
   }
 
   useEffect(() => {
-    databaseApi.getItems().then((arr) => {
-      setCurrentClothingItems(arr);
-    });
+    databaseApi
+      .getItems()
+      .then((arr) => {
+        setCurrentClothingItems(arr);
+      })
+      .catch(console.error);
   }, []);
 
   return {

@@ -43,15 +43,17 @@ function ItemCard({
     >
       <div className="item-card__actions">
         <p className="item-card__action item-card__name">{name}</p>
-        <img
-          src={!isLiked ? HeartHollow : HeartFilled}
-          className="item-card__action item-card__like"
-          onClick={(e) => {
-            e.stopPropagation();
-            handleCardLike({ id, isLiked });
-            setIsLiked(!isLiked);
-          }}
-        />
+        {currentUser.isLoggedIn && (
+          <img
+            src={!isLiked ? HeartHollow : HeartFilled}
+            className="item-card__action item-card__like"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleCardLike({ id, isLiked });
+              setIsLiked(!isLiked);
+            }}
+          />
+        )}
       </div>
     </div>
   );

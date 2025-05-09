@@ -1,6 +1,6 @@
 // External
 import './ChangeProfileInfoModal.css';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 // Components
 import ModalWithForm from '../ModalWithForm';
@@ -14,7 +14,7 @@ import { CurrentUserContext } from '../../../../contexts/CurrentUserContext';
 import { isAvatarValid } from '../../../../utils/validation';
 
 function ChangeProfileInfoModal({ isOpen, closeModal }) {
-  const { updateUserInfo } = useContext(CurrentUserContext);
+  const { currentUser, updateUserInfo } = useContext(CurrentUserContext);
 
   const [name, setName] = useState('');
   const [avatar, setAvatar] = useState('');
@@ -27,8 +27,8 @@ function ChangeProfileInfoModal({ isOpen, closeModal }) {
   };
 
   const resetFields = () => {
-    setName('');
-    setAvatar('');
+    setName(currentUser.name);
+    setAvatar(currentUser.avatar);
   };
 
   const handleSubmit = (evt) => {
@@ -45,6 +45,10 @@ function ChangeProfileInfoModal({ isOpen, closeModal }) {
         closeModal();
       });
   };
+
+  useEffect(() => {
+    resetFields();
+  }, [currentUser]);
 
   return (
     isOpen && (

@@ -7,9 +7,7 @@ import ModalWithForm from '../ModalWithForm';
 import FormInput from '../../../UI/FormElements/FormInput';
 import FormRadioGroup from '../../../UI/FormElements/FormRadioGroup';
 
-// Contexts
-import { CurrentClothingItemsContext } from '../../../../contexts/CurrentClothingItemsContext';
-
+// Constants
 const DEFAULT_WEATHER_TYPE = 'hot'; // Options: hot, cold, warm
 
 function AddItemModal({ isOpen, onAddItem, closeModal }) {
@@ -21,7 +19,9 @@ function AddItemModal({ isOpen, onAddItem, closeModal }) {
   const [buttonText, setButtonText] = useState('Add garment');
   const [buttonDisabled, setButtonDisabled] = useState(false);
 
-  const { currentClothingItems } = useContext(CurrentClothingItemsContext);
+  // I actually really liked the idea of the form hook but it will
+  // take me some time to get used to handling hooks in a different file
+  // the current ones were pain enough haha
 
   const weatherOptions = [
     { id: 'hot-weather', value: 'hot', label: 'Hot' },

@@ -34,6 +34,9 @@ function FormInput({
     if (!isValid) {
       const message = evt.target.validationMessage;
       setError(message);
+      // I thought it looked better than red because when
+      // user inputs and immediatly sees red it looks bad
+      // but like this it looks more like instructions
       _labelRef.current.classList.add('form__label-error');
       _inputRef.current.classList.add('form__input-error');
     } else {
