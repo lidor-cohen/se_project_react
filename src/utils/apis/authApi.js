@@ -2,7 +2,10 @@ import { getToken } from '../token';
 
 class AuthAPI {
   constructor() {
-    this._baseUrl = 'http://localhost:3001';
+    this._baseUrl =
+      process.env.NODE_ENV === 'production'
+        ? 'https://api.what-to-wear.twilightparadox.com'
+        : 'http://localhost:3001';
   }
 
   checkResponse(res) {
