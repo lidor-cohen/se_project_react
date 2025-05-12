@@ -22,16 +22,16 @@
 
 ##  Overview
 
-**seprojectreact** is a cutting-edge open-source project designed to streamline React application development. By managing dependencies and configurations, it ensures stability and consistency. With features like user authentication, weather data integration, and seamless UI components, it caters to developers seeking efficient and reliable React solutions for diverse web applications.
-
-**Back-End Repository**: https://github.com/lidor-cohen/se_project_express
+**What to Wear?** is a React-based web application designed to help users decide what to wear based on various factors. The app includes secure user authentication, featuring login and signup functionality integrated with MongoDB for safe and efficient data storage.
 
 ---
 
 ##  Available on
 
-**Front-End** - `https://what-to-wear.twilightparadox.com/`
-**API Back-End** - `https://api.what-to-wear.twilightparadox.com/`
+**Check it out on** - `https://what-to-wear.twilightparadox.com/`
+
+**API Back-End URL** - `https://api.what-to-wear.twilightparadox.com/`
+**Back-End Repository**: `https://github.com/lidor-cohen/se_project_express`
 
 ---
 
